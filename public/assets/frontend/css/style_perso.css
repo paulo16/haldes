@@ -1,0 +1,13 @@
+.wrapper {
+    width: 80%;
+    margin: auto;
+    padding: 7px;
+    background: url(../images/form-bg.png) repeat;
+}
+
+.wizard {
+    position: relative;
+    background: #fff;
+    padding: 64px 58px 0;
+    height: 80%;
+}
