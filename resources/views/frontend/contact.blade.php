@@ -2,7 +2,7 @@
 @extends('frontend.layouts.default')
 
 @section('head')
-<title>Haldes | ccontact</title>
+<title>@lang('contenu.contact.titre_header')</title>
 @endsection
 
 @section('header')
@@ -10,13 +10,13 @@
         <div class="container">
             <div class="row mt20 mb30">
                 <div class="col-md-6 text-left">
-                    <h3 class="color-light text-uppercase animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">CONTACTEZ NOUS<small class="color-light alpha7">Au besoin</small></h3>
+                    <h3 class="color-light text-uppercase animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">@lang('contenu.contact.contact_nous')<small class="color-light alpha7">@lang('contenu.contact.contact_besoin')</small></h3>
                 </div>
                 <div class="col-md-6 text-right">
                     <div class="col-sm-8">
                         <ul class="breadcrumb">
                             <li>
-                                <H3 class="color-light text-uppercase animated fadeInUp visible">Envoyez votre message</a></H3>
+                                <H3 class="color-light text-uppercase animated fadeInUp visible">@lang('contenu.contact.envoye_msg')</a></H3>
                             </li>
                         </ul>
                     </div>

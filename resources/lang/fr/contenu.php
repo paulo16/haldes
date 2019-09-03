@@ -95,4 +95,55 @@ return [
         'substances' => 'substances',
         'action' => 'action',
     ],
+
+    'home' => [
+        'titre_header' => 'Haldes | Accueil',
+        'enregistrer_vous' => 'Enregistez-vous sur la plateforme',
+        'verif_email' => "verifier vos emails pour l'activation du compte.",
+        'connectez_vous' => 'Connectez-Vous',
+        'explorez' => ' Pour explorer votre profil.',
+        'msg_faitedemande' => 'Faites vos demandes',
+        'msg_utliserhalde' => "Utiliser la plateforme pour faire vos demandes de permis d'exploitation de site
+        (haldes ou terrils) .",
+        'msg_suivez' => "Suivez vos demandes",
+        'msg_controler' => " Controler en temps reél l'état de vos demandes.",
+        'msg_enreg' => "ENREGISTREZ-VOUS",
+        'msg_suivdem' => "SUIVEZ VOS DEMANDES",
+
+    ],
+    'nav' => [
+        'accueil' => "Accuiel",
+        'suivi' => "SUIVI",
+        'DECONNEXION' => "DECONNEXION",
+        'CONNEXION' => "CONNEXION",
+        'ADMIN' => "ADMIN",
+        'CONTACT' => "CONTACTEZ NOUS",
+        'lang' => "Langues",
+        'fr' => "Français",
+        'ar' => "Arabe",
+        'INSCRIRE' => "S'INSCRIRE ",
+    ],
+    'sidemenu' => [
+        'PROFIL' => "PROFIL",
+        'COMPTE' => "MON COMPTE",
+        'DEMANDES' => "MES DEMANDES",
+        'CREATEDEM' => "CREATION DEMANDE",
+    ],
+    'adddemande' => [
+        'titre_header' => "Haldes | faire demande",
+        'suivi' => "SUIVI DES DEMANDES",
+        'explorez' => "Explorez les onglets",
+        'demande' => "MES DEMANDES",
+        'faites_demande' => "FAITES VOTRE DEMANDE",
+        'type_demande' => "TYPE DE DEMANDE",
+        'soumettre' => "SOUSMETTRE LA DEMANDE",
+    ],
+
+    'contact' => [
+        'titre_header' => "Haldes | ccontact",
+        'contact_nous' => "CONTACTEZ NOUS",
+        'contact_besoin' => "Au besoin",
+        'envoye_msg' => "Envoyez votre message",
+    ],
+
 ];

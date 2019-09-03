@@ -1,7 +1,7 @@
 @extends('frontend.layouts.default')
 @section('head')
 <title>
-    Haldes | faire demande
+    @lang('contenu.adddemande.titre_header')
 </title>
 @endsection
 @section('header')
@@ -10,9 +10,9 @@
         <div class="row mt20 mb30">
             <div class="col-md-6 text-left">
                 <h3 class="color-light text-uppercase animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">
-                    SUIVI DES DEMANDES
+                     @lang('contenu.adddemande.suivi')
                     <small class="color-light alpha7">
-                        Explorez les onglets
+                        @lang('contenu.adddemande.explorez')        
                     </small>
                 </h3>
             </div>
@@ -20,7 +20,7 @@
                 <ul class="breadcrumb">
                     <li>
                         <h3 class="color-light text-uppercase animated fadeInUp visible">
-                            MES DEMANDES
+                            @lang('contenu.adddemande.demande') 
                         </h3>
                     </li>
                 </ul>
@@ -42,14 +42,14 @@
                 <!-- content
                     ===================================== -->
                     <h3>
-                        FAITES VOTRE DEMANDE
+                        @lang('contenu.adddemande.faites_demande') 
                     </h3>
                     <form id="form-demande" name="form-demande">
                         @csrf
                         <div class="col-md-12 pt20">
                             <div class="form-group">
                                 <label>
-                                    TYPE DE DEMANDE
+                                    @lang('contenu.adddemande.faites_demande')          
                                 </label>
                                 <select class="input-md input-circle form-control" id="type_demande" name="type_demande" value="{{ old('type_demande')}}">
                                     @foreach ($typedemandes as $d)
@@ -90,11 +90,11 @@
                         <div class="col-md-12 pt10">
                             <div class="col-md-12 col-xs-12 text-center">
                                 <button class="button button-lg button-circle button-info soumettre" id="soumettre">
-                                    SOUSMETTRE LA DEMANDE
+                                        @lang('contenu.adddemande.soumettre')
                                 </button>
                             </div>
                         </div>
-                    </br>
+                    <br>
                 </form>
             </div>
         </div>

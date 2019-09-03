@@ -1,5 +1,5 @@
 .wrapper {
-    width: 80%;
+    width: 90%;
     margin: auto;
     padding: 7px;
     background: url(../images/form-bg.png) repeat;
@@ -9,5 +9,5 @@
     position: relative;
     background: #fff;
     padding: 64px 58px 0;
-    height: 80%;
+    height: 95%;
 }

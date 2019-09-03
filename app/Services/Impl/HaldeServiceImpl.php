@@ -6,6 +6,7 @@ use App\Halde;
 use App\Services\HaldeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 class HaldeServiceImpl implements HaldeService
 {
@@ -78,6 +79,7 @@ class HaldeServiceImpl implements HaldeService
 
             $input = '<input type="radio" value=":id"  name="halde"  >';
 
+
             if ($timepass < $TEMPS_TRAITEMENT) {
                 $input = '<input type="radio" value=":id"  name="halde"  disabled>';
             }
@@ -87,7 +89,6 @@ class HaldeServiceImpl implements HaldeService
             if ($timepass < $TEMPS_REJETE) {
                 $input = '<input type="radio" value=":id"  name="halde"  disabled>';
             }
-
         }
         foreach ($haldes as $halde) {
             $show  = route('haldes.show', $halde->id_halde);
@@ -105,7 +106,6 @@ class HaldeServiceImpl implements HaldeService
             $nestedData['action'] = $input;
 
             $data[] = $nestedData;
-
         }
 
         $json_data = array(
@@ -119,14 +119,10 @@ class HaldeServiceImpl implements HaldeService
     }
 
     public function update(Request $request, $id)
-    {
-
-    }
+    { }
 
     public function store(Request $request)
-    {
-
-    }
+    { }
 
     public function find($id)
     {
@@ -136,13 +132,11 @@ class HaldeServiceImpl implements HaldeService
     }
 
     public function delete($id)
-    {
+    { }
 
-    }
-
-/**
- * @return int
- */
+    /**
+     * @return int
+     */
 
     public function count()
     {
@@ -150,8 +144,7 @@ class HaldeServiceImpl implements HaldeService
     }
 
     public function listpays()
-    {
-    }
+    { }
 
     public function timepass()
     {
@@ -159,12 +152,15 @@ class HaldeServiceImpl implements HaldeService
         $datenow     = $datenow->format('Y-m-d H:i:s');
         $lastdemande = \DB::table('demandes')->latest('id')->first();
 
-        $seconds = strtotime($datenow) - strtotime($lastdemande->created_at);
+        $minutes = 0;
+        if (isset($lastdemande)) {
+            $seconds = strtotime($datenow) - strtotime($lastdemande->created_at);
 
-        $days    = floor($seconds / 86400);
-        $hours   = floor(($seconds - ($days * 86400)) / 3600);
-        $minutes = floor(($seconds - ($days * 86400) - ($hours * 3600)) / 60);
-        $seconds = floor(($seconds - ($days * 86400) - ($hours * 3600) - ($minutes * 60)));
+            $days    = floor($seconds / 86400);
+            $hours   = floor(($seconds - ($days * 86400)) / 3600);
+            $minutes = floor(($seconds - ($days * 86400) - ($hours * 3600)) / 60);
+            $seconds = floor(($seconds - ($days * 86400) - ($hours * 3600) - ($minutes * 60)));
+        }
 
         return $minutes;
     }

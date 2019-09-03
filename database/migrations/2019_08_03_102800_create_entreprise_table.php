@@ -16,6 +16,12 @@ class CreateEntrepriseTable extends Migration
         Schema::create('entreprises', function (Blueprint $table) {
             $table->increments('id');
             $table->string('raison_social')->nullable();
+            $table->string('email_entreprise')->nullable();
+            $table->string('nom_gerant')->nullable();
+            $table->string('prenom_gerant')->nullable();
+            $table->string('email_gerant')->nullable();
+            $table->string('adresse_gerant')->nullable();
+            $table->string('tel_gerant')->nullable();
             $table->string('registre_commerce')->nullable();
             $table->unsignedInteger('nombre_actionnaires')->nullable();
             $table->string('ice')->nullable();

@@ -15,6 +15,7 @@ class CreateCooperativeTable extends Migration
     {
         Schema::create('cooperatives', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('num_registre_local');
             $table->unsignedInteger('nombre_membres')->nullable();
             $table->unsignedInteger('structure_id')->nullable();
             $table->timestamps(2);

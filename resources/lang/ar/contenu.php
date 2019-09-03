@@ -1,0 +1,148 @@
+<?php
+return [
+    'demande' => [
+        'confirmer_depot_pieces_titre'                          => 'يجب عليك تقديم العناصر التالية خلال 10 أيام:',
+        'piece1_diplomes_references'                            => "Diplômes, titres et références professionnelles du  personnel de l’entreprise ou de la coopérative minière chargés de la conduite et du suivi des travaux ou, éventuellement, les contrats le liant aux personnes physiques ou morales agréées visées à l’article 58 de la loi n°33-13 ",
+        'piece2_moyens_humain_technique'                        => "Moyens humains et techniques envisagés pour l’exécution des travaux",
+        'piece3_capacites_techniques_financires'                => "Les pièces justifiant que l’entreprise ou la coopérative minière dispose des capacités techniques et financières ",
+        'piece4_troisderniers_bilans_comptes'                   => "Les trois derniers bilans et comptes de l’entreprise ou de la coopérative minière ",
+        'piece5_listemateriels_detenu_ou_acquerir'              => "Liste et valeur du matériel détenu par le demandeur ou que celui-ci envisage d’acquérir et le financement correspondant",
+        'piece6_garanties_cautions'                             => "Garanties et cautions dont bénéficie l’entreprise ou la coopérative minière, le cas éventuel ",
+        'piece7_fiche_descrip_entreprise_plus_representant'     => "Fiche indiquant la dénomination de la personne morale, sa forme juridique, son siège social et le nom, prénom, qualité et domicile de son représentant ",
+        'piece8_pieces_administratives_obligations_cotisations' => "Pièces administratives délivrées par les autorités compétentes et justifiant que le demandeur est en règle au regard de ses obligations fiscales et cotisations sociales",
+        'piece9_qualite_mandataire'                             => "Une pièce attestant de la qualité de mandataire de la personne morale au cas où la demande est formulée par un mandataire",
+        'piece10_plan_trois_exemplaire'                         => "Un plan en en trois (3) exemplaires, à une échelle adéquat, indiquant les limites du périmètre objet de la demande de l’autorisation d’exploitation des haldes et terrils en coordonnées Lambert ainsi que sa forme et sa superficie",
+        'piece11_recepisse_versement_service_mine'              => "Récépissé du versement de la rémunération des services rendus par l’administration chargée des mines, au titre de l’institution de l’autorisation d’exploitation des haldes et terrils",
+        'piece12_engagement_etude_environnement'                => "Un engagement de réaliser l’étude d’impact sur l’environnement et de présenter la décision d’acceptabilité environnementale, dans un délai d’un an à compter de la date de la délivrance de l’autorisation d’exploitation des haldes et terrils ",
+
+        'nom_halde'                                             => 'الايم',
+        'nom_region'                                            => 'الجهة',
+        'coordonnees'                                           => 'معلومات الاتصال',
+        'nom_province'                                          => 'لولاية',
+        'qte_dechets'                                           => 'الكمية',
+        'action_reserver'                                       => 'حجز',
+
+        'nom_resp'                                              => 'اسم المسؤل',
+        'nom_site'                                              => 'الموقع',
+        'site_coord'                                            => 'الاحداتيات',
+        'site_region'                                           => 'الجهة',
+        'site_province'                                         => 'الولاية',
+        'date_demande'                                          => 'تاريخ الطلب',
+        'etat'                                                  => 'الحالة',
+        'identifiant'                                           => 'التعريف',
+
+    ],
+
+    'alert'   => [
+        /////////sweet alert ///////////
+        'oops'            => 'هناك مشكل صغير',
+        'problem_server'  => 'جهة الخادم . اعد المحاولة',
+        'demande_titre'   => 'الطلب',
+        'demande_message' => 'تم الطلب بنجاح',
+        'sure'            => 'هل أنت متأكد من اختيارك للموقع؟',
+        'subtext_sure'    => 'بعد تقديم الطلب لا يمكنكم تقديم طلبات اخرى خلال اجل محدد',
+        'confirm_btn'     => '! نعم. ارسل ',
+        'cancel_btn'      => 'لا قم بالالغاء',
+        'env_imp'         => 'الارسال مستحيل',
+        'sub_env'         => 'تم إرسال الطلب ، راجع بريدك بانتظام لتلقي ردنا في غضون 10 أيام!',
+    ],
+    "admin" => [
+        'config' => 'الاعدادات',
+        'sign_in' => 'اتصال',
+        'log_out' => 'تسجيل الخروج',
+        'page_connexion' => 'صفحة الاتصال',
+        'connexion_description' => 'اتصال مستخدم',
+
+        /////////sweet alert ///////////
+        'oops' => 'مشكل صغير',
+        'problem_server' => 'جهة الخادم . اعد المحاولة',
+        'ajout_titre' => 'اضافة',
+        'ajout_message' => 'تمت الاضافة بنجاح',
+        'update_titre' => 'تحرير',
+        'update_message' => 'تم التحديت بنجاح',
+        'sure' => 'هل انت متأكد ؟',
+        'subtext_sure' => 'لا يمكنك استرداد هذا الخط بعد ذلك!',
+        'confirm_btn' => 'نعم احذف!',
+        'cancel_btn' => 'لا قم بالالغاء',
+        'sup_imp' => 'الحذف المستحيل!',
+        'sub_sup' => 'خط محذوف!',
+        'supprime' => 'حذف!',
+        'oops' => 'اوووبس',
+        'problem_server' => 'مشكلة من جهة الخادم',
+
+        ////////////// User ////////////////
+        'action' => 'حركة',
+        'user_nom' => 'النسب',
+        'user_prenom' => 'الاسم',
+        'user_email' => 'البريد الالكتروني',
+        'user_date' => 'تاريخ الانشاء',
+        'user_role' => 'الدور',
+        'user_pays' => 'البلد',
+    ],
+
+    'substance' => [
+        'nom' => 'الاسم',
+        'description' => 'الوصف',
+        'action' => 'الحركة',
+    ],
+
+    'halde' => [
+        'nom' => 'الاسم',
+        'coordonnees' => 'معلومات الاتصال',
+        'region' => 'الجهات',
+        'province' => 'الولايات',
+        'qtedechets' => 'كمية المخلفات',
+        'substances' => 'المواد',
+        'action' => 'الفعل',
+    ],
+
+    'home' => [
+        'titre_header' => 'Haldes | الاستقبال',
+        'enregistrer_vous' => 'قم بالتسجيل الان',
+        'verif_email' => "تحقق من رسائل البريد الإلكتروني الخاصة بك لتفعيل الحساب.",
+        'connectez_vous' => 'تسجيل الدخول إلى حسابك',
+        'explorez' => 'قم بإعداد ملف التعريف الخاص بك',
+        'msg_faitedemande' => 'قم بتقديم طلبكم الان',
+        'msg_utliserhalde' => "استخدم المنصة من اجل تقديم طلبات الحصول على تراخيص الاستغلال",
+        'msg_suivez' => "تتبعوا طلباتكم",
+        'msg_controler' => " تحققوا من حالة طلباتكم في اي وقت",
+        'msg_enreg' => "قوموا بالتسجيل",
+        'msg_suivdem' => "تتبع طلباتكم",
+
+    ],
+    'nav' => [
+        'accueil' => "الاستقبال",
+        'suivi' => "تتبع",
+        'DECONNEXION' => "تسجيل الخروج",
+        'CONNEXION' => "الاتصال",
+        'ADMIN' => "المسؤل",
+        'CONTACT' => "تواصل معنا",
+        'lang' => "اللغات",
+        'fr' => "الفرنسية",
+        'ar' => "العربية",
+        'INSCRIRE' => "التسجيل",
+    ],
+    'sidemenu' => [
+        'PROFIL' => "البيانات الشخصية",
+        'COMPTE' => "حسابي",
+        'DEMANDES' => "طلباتي",
+        'CREATEDEM' => "تقديم طلب",
+    ],
+    'adddemande' => [
+        'titre_header' => "Haldes | faire demande",
+        'suivi' => "SUIVI DES DEMANDES",
+        'explorez' => "Explorez les onglets",
+        'demande' => "MES DEMANDES",
+        'faites_demande' => "FAITES VOTRE DEMANDE",
+        'type_demande' => "TYPE DE DEMANDE",
+        'soumettre' => "SOUSMETTRE LA DEMANDE",
+    ],
+
+    'contact' => [
+        'titre_header' => "Haldes | ccontact",
+        'contact_nous' => "CONTACTEZ NOUS",
+        'contact_besoin' => "Au besoin",
+        'envoye_msg' => "Envoyez votre message",
+    ],
+
+];

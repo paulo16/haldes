@@ -11,18 +11,18 @@
         <div class="navbar-collapse collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
                 @if (Route::has('login'))
-                <li><a href="{{route('accueil')}}" class=" color-light">Accuiel </a>
+                <li><a href="{{route('accueil')}}" class=" color-light">@lang('contenu.nav.accueil') </a>
             </li>
             
             @auth
             <li>
-                <a href="{{ route ('profil.index') }}">SUIVI</a>
+                <a href="{{ route ('profil.index') }}">@lang('contenu.nav.suivi')</a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                    {{ __('DECONNEXION') }}
+                    {{ __('contenu.nav.DECONNEXION') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -31,29 +31,31 @@
             
             @else
             <li>
-                <a href="{{ route('login') }}">CONNEXION</a>
+                <a href="{{ route('login') }}"> {{ __('contenu.nav.CONNEXION') }}</a>
             </li>
             @if (Route::has('register'))
             <li>
-                <a href="{{ route('register') }}">S'INSCRIRE</a>
+                <a href="{{ route('register') }}">{{ __('contenu.nav.INSCRIRE') }}</a>
             </li>
             @endif
             @endauth
             
             @endif
+            @role('admin')
             <li>
-              <a href="{{ route ('ADMIN') }}">ADMIN</a>
+              <a href="{{ route ('ADMIN') }}"> {{ __('contenu.nav.ADMIN') }}</a>
             </li>
+            @endrole
             <li>
-                <a href="{{ route ('contact.index') }}">CONTACTEZ NOUS</a>
+                <a href="{{ route ('contact.index') }}">{{ __('contenu.nav.CONTACT') }}</a>
             </li>
             <li>
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Langues
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">{{ __('contenu.nav.lang') }}
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="lang/fr">Français</a></li>
-                        <li><a class="dropdown-item" href="lang/ar">Arabe</a></li>
+                        <li><a class="dropdown-item" href="lang/fr">{{ __('contenu.nav.fr') }}</a></li>
+                        <li><a class="dropdown-item" href="lang/ar">{{ __('contenu.nav.ar') }}</a></li>
                     </ul>
                 </div>
             </li>

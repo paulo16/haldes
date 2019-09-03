@@ -5,14 +5,20 @@ namespace App\Http\Controllers\Auth;
 use App\Entreprise;
 use App\Http\Controllers\Controller;
 use App\Pays;
+use App\Role;
+use App\Region;
+use App\Actionnaire;
 use App\Personne;
 use App\Structure;
 use App\Typepersonne;
 use App\Typestructure;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -78,13 +84,11 @@ class RegisterController extends Controller
                 'adresse_responsable'     => ['required', 'string', 'max:255'],
                 'mobile'                  => ['required', 'string', 'max:255'],
                 'email'                   => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password'                => ['required', 'string', 'min:8', 'confirmed'],
-                'nom_entreprise'          => ['required', 'string', 'max:255'],
+                'password'                => ['required', 'string', 'min:8', 'confirmed','regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'],
                 'siege_entreprise'        => ['required', 'string', 'max:255'],
                 'nationalite_entreprise'  => ['required', 'numeric'],
                 'capital_entreprise'      => ['required', 'numeric'],
                 'registre_commerce'       => ['required', 'string', 'max:255'],
-                'nombre_personne'         => ['required', 'numeric'],
                 'type_structure'          => ['required', 'string', 'max:255'],
                 'raison_social'           => ['required', 'string', 'max:255'],
                 'ice'                     => ['required', 'string', 'max:255'],
@@ -92,6 +96,13 @@ class RegisterController extends Controller
                 'identifiant_fiscal'      => ['required', 'string', 'max:255'],
                 'cin'                     => ['required', 'string', 'max:255'],
                 'date_creation'           => 'required|date',
+                'nom_gerant'                     => ['required', 'string', 'max:255'],
+                'prenom_gerant'                     => ['required', 'string', 'max:255'],
+                'email_gerant'                     => ['required', 'string', 'max:255'],
+                'tel_gerant'                     => ['required', 'string', 'max:255'],
+
+
+
             ]);
         } else {
             return Validator::make($data, [
@@ -102,11 +113,9 @@ class RegisterController extends Controller
                 'mobile'                  => ['required', 'string', 'max:255'],
                 'email'                   => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password'                => ['required', 'string', 'min:8', 'confirmed'],
-                'nom_entreprise'          => ['required', 'string', 'max:255'],
                 'siege_entreprise'        => ['required', 'string', 'max:255'],
                 'nationalite_entreprise'  => ['required', 'numeric'],
                 'registre_commerce'       => ['required', 'string', 'max:255'],
-                'nombre_personne'         => ['required', 'numeric'],
                 'type_structure'          => ['required', 'string', 'max:255'],
                 'cin'                     => ['required', 'string', 'max:255'],
                 'date_creation'           => 'required|date',
@@ -122,22 +131,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name'     => $data['nom_responsable'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        DB::beginTransaction();
 
-        $role = Role::firstOrCreate(array('name' => 'externe'));
-        \DB::table('role_user')->insert([
-            'user_id'              => $user->id,
-            'role_id'             => $role->id,
-        ]);
+        try {
 
-        if ($user) {
+            $user =  User::create([
+                'name'     => $data['nom_responsable'],
+                'email'    => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+            $role = Role::firstOrCreate(array('name' => 'externe'));
+            \DB::table('role_user')->insert([
+                'user_id'              => $user->id,
+                'role_id'             => $role->id,
+            ]);
+
+
 
             $structure = Structure::create([
-                'nom'                     => $data['nom_entreprise'],
+                'nom'                     => $data['raison_social'],
                 'siege'                   => $data['siege_entreprise'],
                 'nationalite'             => $data['nationalite_entreprise'],
                 'telephone'               => $data['fixe'],
@@ -148,43 +161,71 @@ class RegisterController extends Controller
 
 
 
-            if ($structure) {
+            $entreprise = Entreprise::create([
+                'raison_social'       => $data['raison_social'],
+                'nom_gerant'       => $data['nom_gerant'],
+                'prenom_gerant'       => $data['prenom_gerant'],
+                'email_gerant'       => $data['email_gerant'],
+                'tel_gerant'       => isset($data['tel_gerant']) ? $data['tel_gerant'] : '',
+                'adresse_gerant'       => isset($data['adresse_gerant']) ? $data['adresse_gerant'] : '',
+                'registre_commerce'   => $data['registre_commerce'],
+                'nombre_actionnaires' => isset($data['nombre_personne']) ? $data['nombre_personne'] : 0,
+                'ice'                 => $data['ice'],
+                'cnss'                => $data['cnss'],
+                'if'                  => $data['identifiant_fiscal'],
+                'structure_id'        => $structure->id,
+            ]);
 
-                $entreprise = Entreprise::create([
-                    'raison_social'       => $data['raison_social'],
-                    'registre_commerce'   => $data['registre_commerce'],
-                    'nombre_actionnaires' => $data['nombre_personne'],
-                    'ice'                 => $data['ice'],
-                    'cnss'                => $data['cnss'],
-                    'if'                  => $data['identifiant_fiscal'],
-                    'structure_id'        => $structure->id,
-                ]);
+            $personne = Personne::create([
+                'nom'            => $data['nom_responsable'],
+                'prenom'         => $data['prenom'],
+                'nationalite'    => $data['nationalite_responsable'],
+                'adresse'        => $data['adresse_responsable'],
+                'telephone_fixe' => $data['fixe'],
+                'mobile'         => $data['mobile'],
+                'cin'            => $data['cin'],
+                'structure_id'   => $structure->id,
+                'user_id'        => $user->id,
+            ]);
 
-                $personne = Personne::create([
-                    'nom'            => $data['nom_responsable'],
-                    'prenom'         => $data['prenom'],
-                    'nationalite'    => $data['nationalite_responsable'],
-                    'adresse'        => $data['adresse_responsable'],
-                    'telephone_fixe' => $data['fixe'],
-                    'mobile'         => $data['mobile'],
-                    'cin'            => $data['cin'],
-                    'structure_id'   => $structure->id,
-                    'user_id'        => $user->id,
-                ]);
-            }
+
+            // Ajout d'actionnaire
+
+            // if (
+            //     isset($data["input_nom"]) && is_array($data["input_nom"]) &&
+            //     isset($data["input_prenom"]) && is_array($data["input_prenom"]) &&
+            //     isset($data["input_part"]) && is_array($data["input_part"])
+            // ) {
+
+
+
+            //     $input_noms = array_filter($data["input_nom"]);
+            //     $input_prenoms = array_filter($data["input_prenom"]);
+            //     $input_parts = array_filter($data["input_part"]);
+            //     $taille = count($input_noms);
+
+            //     $array_actionnaires = array();
+            //     for ($i = 0; $i < $taille; $i++) {
+            //         $array_actionnaires[] = [
+            //             'nom'       => $input_noms[$i],
+            //             'prenom'   => $input_prenoms[$i],
+            //             'part_social' => $input_parts[$i],
+            //             'entreprise_id' => $entreprise->id,
+            //         ];
+            //     }
+            //     //dd($array_actionnaires);
+
+            //     DB::table('actionnaires')->insert($array_actionnaires);
+            // }
+
+
+            DB::commit();
+            //all good
+        } catch (\Exception $e) {
+            DB::rollback();
+            //something went wrong
         }
 
-        if ($user && $structure && $entreprise && $personne) {
-
-            return $user;
-        } else {
-
-            User::where('id', $user->id)->delete();
-            Structure::where('id', $structure->id)->delete();
-            Entreprise::where('id', $entreprise->id)->delete();
-            personne::where('id', $personne->id)->delete();
-
-            return null;
-        }
+        return $user;
     }
 }
