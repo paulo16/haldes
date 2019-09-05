@@ -72,3 +72,11 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     Route::get('substanceexploitees/data', 'SubstanceexploiteeController@data')->name('substanceexploitees.data');
     Route::resource('substanceexploitees', 'SubstanceexploiteeController');
 });
+
+Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
+    //Import Excel
+    Route::get('excel/importExport', 'ExcelcsvController@importExport')->name('importexcel.show');
+    Route::get('excel/downloadExcel/{type}', 'ExcelcsvControllerr@downloadExcel')->name('importexcel.download');
+    Route::post('excel/importExcel', 'ExcelcsvController@importExcel')->name('importexcel.import');
+});
+

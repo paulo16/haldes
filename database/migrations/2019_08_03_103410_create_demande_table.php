@@ -17,6 +17,7 @@ class CreateDemandeTable extends Migration
             $table->increments('id');
             $table->string('nom')->nullable();
             $table->string('description')->nullable();
+            $table->text('note')->nullable();
             $table->string('etat')->nullable();
             $table->unsignedInteger('typedemande_id')->nullable();
             $table->unsignedInteger('halde_id')->nullable();

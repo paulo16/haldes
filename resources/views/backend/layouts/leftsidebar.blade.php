@@ -42,6 +42,15 @@
                         </span>
                     </a>
                 </li>
+                <li class="has_sub">
+                    <a class="waves-effect" href="{{route('importexcel.show')}}">
+                        <i class="glyphicon glyphicon-map-marker">
+                        </i>
+                        <span>
+                            Importer Fichier Haldes
+                        </span>
+                    </a>
+                </li>
             </ul>
             <div class="clearfix">
             </div>

@@ -146,4 +146,16 @@ return [
         'envoye_msg' => "Envoyez votre message",
     ],
 
+    'importhalde' => [
+        'site' => "les cellules de la colonne site doivent etre non vide",
+        'x' => "les cellules de la colonne x doivent etre non vide",
+        'y' => "les cellules de la colonne y doivent etre non vide",
+        'carte' => "les cellules de la colonne carte doivent etre non vide",
+        'province' => "les cellules de la colonne province doivent etre non vide",
+        'region' => "les cellules de la colonne region doivent etre non vide",
+        'dechets' => "les cellules de la colonne dechets doivent etre non vide",
+        'substances' => "les cellules de la colonne substances doivent etre non vide",
+        'informations' => "les cellules de la colonne informations doivent etre non vide",
+    ],
+
 ];

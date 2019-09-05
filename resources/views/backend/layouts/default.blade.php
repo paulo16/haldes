@@ -53,7 +53,7 @@
         </div> <!-- content -->
 
         <footer class="footer">
-            © 2017. All rights reserved.
+            © 2019. tous droits réservés .
         </footer>
 
     </div>

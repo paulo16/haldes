@@ -169,6 +169,7 @@ return [
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +234,7 @@ return [
         'PDFuseArab' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
