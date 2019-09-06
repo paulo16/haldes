@@ -158,4 +158,11 @@ return [
         'informations' => "les cellules de la colonne informations doivent etre non vide",
     ],
 
+    'groupe' => [
+        'date_publication' => "date publication",
+        'date_fin_publication' => "date fin publication",
+        'nom' => "nom",
+        'action' => "action",
+    ],
+
 ];

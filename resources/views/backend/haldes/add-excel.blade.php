@@ -60,6 +60,10 @@
                   @endif
 
                   <table>
+                      <tr>
+                          <td><label for="nom_publication">Nom groupe</label></td>
+                          <td><input type="text" name="nom_publication"></td>
+                        </tr>
                     <tr>
                       <td><label for="nom">Date publication</label></td>
                       <td><input type="date" name="date_publication"></td>

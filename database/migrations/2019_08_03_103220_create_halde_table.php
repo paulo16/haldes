@@ -23,6 +23,7 @@ class CreateHaldeTable extends Migration
             $table->string('province_noms')->nullable();
             $table->unsignedBigInteger('province_id')->nullable();
             $table->text('qte_dechets')->nullable();
+            $table->boolean('disponible')->nullable();
             $table->text('info_complementaires')->nullable();
             $table->unsignedBigInteger('groupe_id')->nullable();
             $table->timestamps(2);

@@ -50,6 +50,7 @@ class ExcelcsvController extends Controller
     {
         try {
             $request->validate([
+                'nom_publication' => 'required|unique:groupehaldes|max:255',
                 'import_file' => 'required',
                 'date_publication' => 'required|date'
             ]);
@@ -57,6 +58,8 @@ class ExcelcsvController extends Controller
             $path = request()->file('import_file');
             $haldeimport = new HaldesImport;
             $haldeimport->date_publication = $request->get('date_publication');
+            $haldeimport->nom_publication = $request->get('nom_publication');
+            $haldeimport->disponible = true;
             //date fin publication
             $haldeimport->date_fin_publication = Carbon::now()->addMonths(4);
 

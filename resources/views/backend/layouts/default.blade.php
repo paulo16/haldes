@@ -10,6 +10,7 @@
     <link href="{{ asset('assets/backend/css/responsive.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/backend/css/sweetalert.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/backend/css/dropify.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/backend/css/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css"/>
 
 
     <script src="{{asset('assets/backend/js/modernizr.min.js')}}"></script>
@@ -83,6 +84,7 @@
 <script src="{{asset('assets/backend/js/sweetalert.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="{{asset('assets/backend/js/dropify.min.js') }}"></script>
+<script src="{{asset('assets/backend/js/bootstrap-datetimepicker.js') }}"></script>
 
 @yield('js')
 

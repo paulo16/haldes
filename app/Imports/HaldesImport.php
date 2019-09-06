@@ -2,20 +2,25 @@
 
 namespace App\Imports;
 
+use App\Groupe;
 use App\Halde;
 use App\Region;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class HaldesImport implements OnEachRow, WithBatchInserts, WithValidation
+class HaldesImport implements ToCollection, WithBatchInserts, WithValidation
 {
 
     public $errors = [];
     public $datesegments = [];
     public $date_publication;
+    public $nom_publication;
+    public $disponible;
     public $date_fin_publication;
 
     public function datesegment()
@@ -34,14 +39,18 @@ class HaldesImport implements OnEachRow, WithBatchInserts, WithValidation
         return ["jour" => $date_day, "mois" => $date_month, "heure" => $date_heure, "minutes" => $date_minute, "seconde" => $date_seconde, "annee" => $date_year];
     }
 
-    public function onRow(Row $row)
+    public function collection(Collection $rows)
     {
+        $groupe = Groupe::firstOrCreate([
+            'nom_publication' => $this->nom_publication,
+            'date_publication' => $this->date_publication,
+            'date_fin_publication' => $this->date_fin_publication,
+            'disponible' => true,
 
-        $rowIndex = $row->getIndex();
-        $row      = $row->toArray();
+        ]);
 
+        foreach ($rows as $row) {
 
-        if ($rowIndex != 1) {
             // $validator = Validator::make($row, $this->rules(), $this->customValidationAttributes());
             // if ($validator->fails()) {
             //     foreach ($validator->errors()->messages() as $messages) {
@@ -58,20 +67,17 @@ class HaldesImport implements OnEachRow, WithBatchInserts, WithValidation
 
             Halde::firstOrCreate([
                 'nom' => trim($row[0]),
-                'nom_publication' => 'publication_' . $this->datesegments['annee'] . $this->datesegments['mois'] . $this->datesegments['jour'] . $this->datesegments['heure'] . $this->datesegments['minutes'] . $this->datesegments['seconde'],
                 'coordonnees' => trim($row[1]) . '-' . trim($row[2]),
                 'province_noms' => trim($row[4]),
                 'substance_noms' => trim($row[6]),
                 'region_id' => $region->id,
                 'carte' => trim($row[3]),
-                'date_publication' => $this->date_publication,
-                'date_fin_publication' => $this->date_fin_publication,
                 'carte' => trim($row[3]),
                 'qte_dechets' => $row[7],
                 'info_complementaires' => $row[8],
+                'disponible' => true,
+                'groupe_id' => $groupe->id,
             ]);
-        } else {
-            $this->datesegments = $this->datesegment();
         }
     }
 

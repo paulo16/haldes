@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionMarocSeeder::class);
         $this->call(TypeStructureSeeder::class);
         $this->call(ProvinceProfectureSeeder::class);
-        $this->call(HaldeSeeder::class);
+        //$this->call(HaldeSeeder::class);
         $this->call(DemandeWorflowUpdateSeeder::class);
     }
 }

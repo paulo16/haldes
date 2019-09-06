@@ -51,6 +51,16 @@
                         </span>
                     </a>
                 </li>
+
+                <li class="has_sub">
+                    <a class="waves-effect" href="{{route('groupes.index')}}">
+                        <i class="glyphicon glyphicon-map-marker">
+                        </i>
+                        <span>
+                            Groupe Haldes
+                        </span>
+                    </a>
+                </li>
             </ul>
             <div class="clearfix">
             </div>

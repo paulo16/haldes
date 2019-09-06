@@ -76,7 +76,16 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
 Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     //Import Excel
     Route::get('excel/importExport', 'ExcelcsvController@importExport')->name('importexcel.show');
-    Route::get('excel/downloadExcel/{type}', 'ExcelcsvControllerr@downloadExcel')->name('importexcel.download');
+    Route::get('excel/downloadExcel/{type}', 'ExcelcsvController@downloadExcel')->name('importexcel.download');
     Route::post('excel/importExcel', 'ExcelcsvController@importExcel')->name('importexcel.import');
 });
 
+
+Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
+    //Import Excel
+    Route::get('groupes/{id}/edit', 'GroupeController@edit')->name('groupes.edit');
+    Route::post('groupes/update/{id}', 'GroupeController@update')->name('groupes.update');
+    Route::get('groupes/list', 'GroupeController@index')->name('groupes.index');
+    Route::post('groupes/delete/{id}', 'GroupeController@delete')->name('groupes.delete');
+    Route::get('groupes/data', 'GroupeController@data')->name('groupes.data');
+});

@@ -18,7 +18,7 @@ class CreateGroupehaldes extends Migration
             $table->string('nom_publication')->nullable();
             $table->timestamp('date_publication',2)->nullable();
             $table->timestamp('date_fin_publication',2)->nullable();
-
+            $table->boolean('disponible')->nullable();
             $table->timestamps(2);
         });
 
