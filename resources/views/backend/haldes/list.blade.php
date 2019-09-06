@@ -35,13 +35,34 @@
                 width="100%">
                 <thead>
                     <tr>
-                        <th>{{ Lang::get('contenu.halde.nom')}}</th>
-                        <th>{{ Lang::get('contenu.halde.coordonnees')}}</th>
-                        <th>{{ Lang::get('contenu.halde.region')}}</th>
-                        <th>{{ Lang::get('contenu.halde.province')}}</th>
-                        <th>{{ Lang::get('contenu.halde.qtedechets')}}</th>
-                        <th>{{ Lang::get('contenu.halde.substances')}}</th>
-                        <th>{{ Lang::get('contenu.halde.action')}}</th>
+                        <th>
+                            {{ Lang::get('contenu.demande.nom_halde')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.coordonnees')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.carte')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.nom_region')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.nom_province')}}
+                        </th>
+
+                        <th>
+                            {{ Lang::get('contenu.demande.qte_dechets')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.substances')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.info_complementaires')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.action')}}
+                        </th>
                     </tr>
                 </thead>
             </table>
@@ -96,12 +117,14 @@
                     dom: 'Bfrtip',
                     buttons: ['csv', 'excel', 'pdf'],
                     columns: [
-                        {data: 'nom', name: 'haldes.nom'},
+                        {data: 'nom_halde', name: 'haldes.nom'},
                         {data: 'coordonnees', name: 'coordonnees'},
-                        {data: 'region', name: 'region'},
-                        {data: 'province', name: 'province'},
-                        {data: 'qtedechets', name: 'qtedechets'},
-                        {data: 'substance', name: 'substance'},
+                        {data: 'carte', name: 'carte'},
+                        {data: 'nom_region', name: 'region'},
+                        {data: 'province_noms', name: 'province_noms'},
+                        {data: 'qte_dechets', name: 'qte_dechets'},
+                        {data: 'substance_noms', name: 'substance_noms'},
+                        {data: 'info_complementaires', name: 'info_complementaires'},
                         {data: 'action', name: 'action'}
                     ],
 

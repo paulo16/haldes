@@ -139,13 +139,21 @@ class HaldeController extends Controller
     public function data(Request $request)
     {
         $haldes = \DB::table('haldes')->leftjoin('regions', 'regions.id', '=', 'haldes.region_id')
-            ->leftjoin('province_prefecture as pp', 'pp.id', '=', 'haldes.province_id')
-            ->leftjoin('halde_substanceexploitee as hs', 'hs.halde_id', '=', 'haldes.id')
-            ->leftjoin('substanceexploitees as sub', 'sub.id', '=', 'hs.substance_id')
+            ->leftjoin('groupehaldes', 'groupehaldes.id', '=', 'haldes.groupe_id')
             ->select([
-                'haldes.id as id', 'haldes.nom as nom', 'haldes.coordonnees',
-                'haldes.qte_dechets as qtedechets', 'haldes.info_complementaires as info_comp', 'pp.nom as province',
-                'regions.nom as region', 'sub.nom as substance', 'haldes.created_at'
+                'haldes.id as id',
+                'haldes.nom as nom_halde',
+                'haldes.coordonnees as coordonnees',
+                'regions.nom as nom_region',
+                'province_noms',
+                'substance_noms',
+                'groupehaldes.date_fin_publication',
+                'carte',
+                'groupehaldes.disponible',
+                'haldes.qte_dechets as qte_dechets',
+                'haldes.created_at as created_at',
+                'groupehaldes.date_publication',
+                'info_complementaires'
             ]);
         $datatables = Datatables::of($haldes)
             ->addColumn('action', function ($model) {
@@ -169,18 +177,18 @@ class HaldeController extends Controller
                 $query->where('regions.nom', 'like', "%" . $keyword . "%");
             });
             
-            $datatables->filterColumn('qtedechets', function ($query, $keyword) {
+            $datatables->filterColumn('qte_dechets', function ($query, $keyword) {
                 $query->where('haldes.qte_dechets', 'like', "%" . $keyword . "%");
             });
 
-            $datatables->filterColumn('province', function ($query, $keyword) {
-                $query->where('pp.nom', 'like', "%" . $keyword . "%");
+            $datatables->filterColumn('province_noms', function ($query, $keyword) {
+                $query->where('haldes.province_noms', 'like', "%" . $keyword . "%");
             });
-            $datatables->filterColumn('substance', function ($query, $keyword) {
-                $query->where('sub.nom', 'like', "%" . $keyword . "%");
+            $datatables->filterColumn('substance_noms', function ($query, $keyword) {
+                $query->where('haldes.substance_noms', 'like', "%" . $keyword . "%");
             });
-            $datatables->filterColumn('region', function ($query, $keyword) {
-                $query->where('regions.nom', 'like', "%" . $keyword . "%");
+            $datatables->filterColumn('carte', function ($query, $keyword) {
+                $query->where('haldes.carte', 'like', "%" . $keyword . "%");
             });
 
 

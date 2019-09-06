@@ -88,4 +88,6 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     Route::get('groupes/list', 'GroupeController@index')->name('groupes.index');
     Route::post('groupes/delete/{id}', 'GroupeController@delete')->name('groupes.delete');
     Route::get('groupes/data', 'GroupeController@data')->name('groupes.data');
+    Route::post('groupes/publier/{id}', 'GroupeController@publier')->name('groupes.publier');
+
 });

@@ -42,9 +42,8 @@
             <div class="form-group{{ $errors->has('date_publication') ? ' has-error' : '' }}">
               <label for="nom">Date publication</label>
               <div class='input-group date'>
-                <input  type="text" id="date_publication" name="date_publication"
-                  class="form-control" id="date_publication"
-                  value="{{ old('date_publication',$groupe->date_publication) }}">
+                <input type="text" id="date_publication" name="date_publication" class="form-control"
+                  id="date_publication" value="{{ old('date_publication',$groupe->date_publication) }}">
                 </span </div> @if ($errors->has('date_publication'))
                 <span class="help-block">
                   <strong>{{ $errors->first('date_publication') }}</strong>
@@ -64,11 +63,18 @@
                   </span>
                   @endif
                 </div>
+                <br><br>
+
                 <div class="form-group{{ $errors->has('disponible') ? ' has-error' : '' }}">
                   <label for="disponible">Publier ?</label>
-                  <input type="radio" name="disponible" @if ($groupe->disponible) checked @endif
-                  class="form-control" id="disponible"
-                  value="{{ old('disponible',$groupe->disponible) }}">
+                  <label for="disponible">Oui</label>
+                  <input type="radio" name="disponible" @if ($groupe->disponible==1) checked @endif
+                  class="" id="disponible"
+                  value="1">
+                  <label for="disponible">Non</label>
+                  <input type="radio" name="disponible" @if ($groupe->disponible==0) checked @endif
+                  class="" id="disponible"
+                  value="0">
 
                   @if ($errors->has('disponible'))
                   <span class="help-block">
@@ -103,7 +109,7 @@
         "format": 'yyyy-mm-dd hh:mm:ss.00',
       });
       $('#date_fin_publication').datetimepicker({
-        "format": 'yyyy-mm-dd hh:ii:ss',
+        "format": 'yyyy-mm-dd hh:ii:ss.00',
       });
   });
 </script>

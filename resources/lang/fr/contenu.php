@@ -30,6 +30,10 @@ return [
         'date_demande'                                          => 'Date Demande',
         'etat'                                                  => 'Etat',
         'identifiant'                                           => 'Identifiant',
+        'action'                                           => 'action',
+        'carte'                                           => 'carte',
+        'substances'                                           => 'substances',
+        'info_complementaires'                                           => 'informations',
 
     ],
 
@@ -163,6 +167,23 @@ return [
         'date_fin_publication' => "date fin publication",
         'nom' => "nom",
         'action' => "action",
+        /////////sweet alert ///////////
+        'oops' => 'Petit Problème, ',
+        'problem_server' => 'coté serveur ,veillez réessayer !',
+        'sure' => 'Etês-vous sûr de vouloir (dé)publier cette liste ?',
+        'subtext_sure' => 'Tous les haldes appartenant à cette liste seront (dé)publiés !',
+        'confirm_btn' => 'Oui, je veux (dé)publier !',
+        'cancel_btn' => 'Non, Annuler !',
+        'publier' => 'Liste (dé)publier !',
+        'sub_publier' => '',
+        'impossible' => 'Impossible de supprimer cette liste',
+        'sub_impossible' => 'Les élements de cette liste sont surement utilisés dans une demande',
+        'publier' => 'Liste (dé)publier !',
+        'sub_publier' => '',
+        'impossible_pub' => 'Impossible de (dé)publier cette liste',
+        'sub_impossible_pub' => 'Il est possible que certains élements soient déja utilisés  dans les demande de haldes',
     ],
+
+
 
 ];

@@ -112,10 +112,18 @@
                         url: url,
                         type: 'POST',
                         data: {_token: '{{ csrf_token() }}'},
-                    }).done(function () {
-                        swal("{{Lang::get('contenu.admin.supprime')}}", "{{Lang::get('contenu.admin.sub_sup')}}", "success");
+                    }).done(function (result) {
+                        //var rep= JSON.stringify(reponse);
+                        //console.log(result);
+                        if (result.reponse == "impossible") {
+                            swal("{{Lang::get('contenu.groupe.impossible')}}", "{{Lang::get('contenu.groupe.sub_impossible')}}", "warning");
+
+                        } else {
+                            swal("{{Lang::get('contenu.admin.supprime')}}", "{{Lang::get('contenu.admin.sub_sup')}}", "success");
+
+                        }
                         table.ajax.reload(null, false);
-                        ;
+                        
 
                     }).error(function () {
                         swal("{{Lang::get('contenu.admin.oops')}}", "{{Lang::get('contenu.admin.problem_server')}}", "error");
@@ -126,18 +134,18 @@
 
          //////////////////// Publier ///////////////////////////////////
 
-                        $(document).on('click', '.delete', function () {
+            $(document).on('click', '.publier', function () {
                 var id = $(this).data('id');
                 var swal_ot = {
-                    title: "{{Lang::get('contenu.admin.sure')}}",
-                    text: "{{Lang::get('contenu.admin.subtext_sure')}}",
+                    title: "{{Lang::get('contenu.groupe.sure')}}",
+                    text: "{{Lang::get('contenu.groupe.subtext_sure')}}",
                     type: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "{{Lang::get('contenu.admin.confirm_btn')}}",
-                    cancelButtonText: "{{Lang::get('contenu.admin.cancel_btn')}}",
+                    confirmButtonText: "{{Lang::get('contenu.groupe.confirm_btn')}}",
+                    cancelButtonText: "{{Lang::get('contenu.groupe.cancel_btn')}}",
                     closeOnConfirm: false
                 };
-                var url = '{{ route("groupes.delete", ":id") }}';
+                var url = '{{ route("groupes.publier", ":id") }}';
                 url = url.replace(':id', id);
 
                 swal(swal_ot, function () {
@@ -145,10 +153,19 @@
                         url: url,
                         type: 'POST',
                         data: {_token: '{{ csrf_token() }}'},
-                    }).done(function () {
-                        swal("{{Lang::get('contenu.admin.supprime')}}", "{{Lang::get('contenu.admin.sub_sup')}}", "success");
+                    }).done(function (result) {
+
+                        console.log(result);
+                        if (result.reponse == "impossible") {
+
+                            swal("{{Lang::get('contenu.groupe.impossible_pub')}}", "{{Lang::get('contenu.groupe.sub_impossible_pub')}}", "warning");
+
+                        } else {
+                            swal("{{Lang::get('contenu.groupe.publier')}}", "{{Lang::get('contenu.groupe.sub_publier')}}", "success");
+
+                        }
                         table.ajax.reload(null, false);
-                        ;
+                        
 
                     }).error(function () {
                         swal("{{Lang::get('contenu.admin.oops')}}", "{{Lang::get('contenu.admin.problem_server')}}", "error");

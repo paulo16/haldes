@@ -9,10 +9,11 @@
     <div class="container">
         <div class="row mt20 mb30">
             <div class="col-md-6 text-left">
-                <h3 class="color-light text-uppercase animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="100">
-                     @lang('contenu.adddemande.suivi')
+                <h3 class="color-light text-uppercase animated fadeInUp visible" data-animation="fadeInUp"
+                    data-animation-delay="100">
+                    @lang('contenu.adddemande.suivi')
                     <small class="color-light alpha7">
-                        @lang('contenu.adddemande.explorez')        
+                        @lang('contenu.adddemande.explorez')
                     </small>
                 </h3>
             </div>
@@ -20,7 +21,7 @@
                 <ul class="breadcrumb">
                     <li>
                         <h3 class="color-light text-uppercase animated fadeInUp visible">
-                            @lang('contenu.adddemande.demande') 
+                            @lang('contenu.adddemande.demande')
                         </h3>
                     </li>
                 </ul>
@@ -41,59 +42,71 @@
             <div class="col-md-9">
                 <!-- content
                     ===================================== -->
-                    <h3>
-                        @lang('contenu.adddemande.faites_demande') 
-                    </h3>
-                    <form id="form-demande" name="form-demande">
-                        @csrf
-                        <div class="col-md-12 pt20">
-                            <div class="form-group">
-                                <label>
-                                    @lang('contenu.adddemande.faites_demande')          
-                                </label>
-                                <select class="input-md input-circle form-control" id="type_demande" name="type_demande" value="{{ old('type_demande')}}">
-                                    @foreach ($typedemandes as $d)
-                                    <option value="{{$d['id']}}">
-                                        {{$d['nom']}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                <h3>
+                    @lang('contenu.adddemande.faites_demande')
+                </h3>
+                <form id="form-demande" name="form-demande">
+                    @csrf
+                    <div class="col-md-12 pt20">
+                        <div class="form-group">
+                            <label>
+                                @lang('contenu.adddemande.faites_demande')
+                            </label>
+                            <select class="input-md input-circle form-control" id="type_demande" name="type_demande"
+                                value="{{ old('type_demande')}}">
+                                @foreach ($typedemandes as $d)
+                                <option value="{{$d['id']}}">
+                                    {{$d['nom']}}
+                                </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <br>
-                        <div class="col-md-12 pt40">
-                            <table class="table" id="halde-table">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            {{ Lang::get('contenu.demande.nom_halde')}}
-                                        </th>
-                                        <th>
-                                            {{ Lang::get('contenu.demande.nom_region')}}
-                                        </th>
-                                        <th>
-                                            {{ Lang::get('contenu.demande.nom_province')}}
-                                        </th>
-                                        <th>
-                                            {{ Lang::get('contenu.demande.coordonnees')}}
-                                        </th>
-                                        <th>
-                                            {{ Lang::get('contenu.demande.qte_dechets')}}
-                                        </th>
-                                        <th>
-                                            {{ Lang::get('contenu.demande.action_reserver')}}
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
+                    </div>
+                    <br>
+                    <div class="col-md-12 pt40">
+                        <table class="table" id="halde-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.nom_halde')}}
+                                    </th>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.coordonnees')}}
+                                    </th>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.carte')}}
+                                    </th>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.nom_region')}}
+                                    </th>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.nom_province')}}
+                                    </th>
+
+                                    <th>
+                                        {{ Lang::get('contenu.demande.qte_dechets')}}
+                                    </th>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.substances')}}
+                                    </th>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.info_complementaires')}}
+                                    </th>
+                                    <th>
+                                        {{ Lang::get('contenu.demande.action_reserver')}}
+                                    </th>
+                                </tr>
+
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="col-md-12 pt10">
+                        <div class="col-md-12 col-xs-12 text-center">
+                            <button class="button button-lg button-circle button-info soumettre" id="soumettre">
+                                @lang('contenu.adddemande.soumettre')
+                            </button>
                         </div>
-                        <div class="col-md-12 pt10">
-                            <div class="col-md-12 col-xs-12 text-center">
-                                <button class="button button-lg button-circle button-info soumettre" id="soumettre">
-                                        @lang('contenu.adddemande.soumettre')
-                                </button>
-                            </div>
-                        </div>
+                    </div>
                     <br>
                 </form>
             </div>
@@ -188,12 +201,15 @@
                 },
                 ],
                 columns: [
-                {data: 'nom_halde', name: 'nom_halde'},
-                {data: 'nom_region', name: 'nom_region'},
-                {data: 'nom_province', name: 'nom_province'},
-                {data: 'coordonnees', name: 'coordonnees'},
-                {data: 'qte_dechets', name: 'qte_dechets'},
-                {data: 'action', name: 'action'},
+                    {data: 'nom_halde', name: 'haldes.nom'},
+                    {data: 'coordonnees', name: 'coordonnees'},
+                    {data: 'carte', name: 'carte'},
+                    {data: 'nom_region', name: 'region'},
+                    {data: 'province_noms', name: 'province_noms'},
+                    {data: 'qte_dechets', name: 'qte_dechets'},
+                    {data: 'substance_noms', name: 'substance_noms'},
+                    {data: 'info_complementaires', name: 'info_complementaires'},
+                    {data: 'action', name: 'action'}
                 ],
             });
         ////////// soumettre formulaire //////////
@@ -253,6 +269,6 @@
 
         });
     });
-</script>
-@endsection
+    </script>
+    @endsection
 </div>

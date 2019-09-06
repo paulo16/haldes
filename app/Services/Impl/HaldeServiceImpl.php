@@ -7,6 +7,7 @@ use App\Services\HaldeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Barryvdh\Debugbar\Facade as Debugbar;
+use Carbon\Carbon;
 
 class HaldeServiceImpl implements HaldeService
 {
@@ -16,12 +17,16 @@ class HaldeServiceImpl implements HaldeService
         $columns = array(
             0 => 'haldes.id',
             1 => 'nom_halde',
-            2 => 'coordonnees',
-            3 => 'nom_province',
+            2 => 'carte',
+            3 => 'coordonnees',
             4 => 'nom_region',
-            5 => 'qte_dechets',
-            6 => 'info_complementaires',
-            7 => 'action',
+            5 => 'province_noms',
+            6 => 'qte_dechets',
+            7 => 'substance_noms',
+            8 => 'info_complementairess',
+            9 => 'action',
+
+
         );
 
         $totalData = Halde::count();
@@ -36,8 +41,26 @@ class HaldeServiceImpl implements HaldeService
         if (empty($request->input('search.value'))) {
 
             $haldes = Halde::leftjoin('regions', 'regions.id', '=', 'haldes.region_id')
-                ->join('province_prefecture', 'province_prefecture.id', '=', 'haldes.province_id')
-                ->select('haldes.id as id_halde', 'haldes.nom as nom_halde', 'haldes.coordonnees as coordonnees', 'regions.nom as nom_region', 'province_prefecture.nom as nom_province', 'haldes.qte_dechets as qte_dechets', 'haldes.created_at as created_at')
+                ->leftjoin('groupehaldes', 'groupehaldes.id', '=', 'haldes.groupe_id')
+
+                ->select(
+                    'haldes.id as id_halde',
+                    'haldes.nom as nom_halde',
+                    'haldes.coordonnees as coordonnees',
+                    'regions.nom as nom_region',
+                    'province_noms',
+                    'substance_noms',
+                    'groupehaldes.date_fin_publication',
+                    'carte',
+                    'groupehaldes.disponible',
+                    'haldes.qte_dechets as qte_dechets',
+                    'haldes.created_at as created_at',
+                    'groupehaldes.date_publication',
+                    'info_complementaires'
+                )
+                ->where('groupehaldes.disponible', '=', 1)
+                ->where('groupehaldes.date_publication', '<=', Carbon::now())
+                ->where('groupehaldes.date_fin_publication', '>=', Carbon::now())
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
@@ -45,24 +68,66 @@ class HaldeServiceImpl implements HaldeService
         } else {
             $search = $request->input('search.value');
             $haldes = Halde::leftjoin('regions', 'regions.id', '=', 'haldes.region_id')
-                ->join('province_prefecture', 'province_prefecture.id', '=', 'haldes.province_id')
-                ->select('haldes.id as id_halde', 'haldes.nom as nom_halde', 'haldes.coordonnees as coordonnees', 'regions.nom as nom_region', 'province_prefecture.nom as nom_province', 'haldes.qte_dechets as qte_dechets', 'haldes.created_at as created_at')
+                ->leftjoin('groupehaldes', 'groupehaldes.id', '=', 'haldes.groupe_id')
+
+                ->select(
+                    'haldes.id as id_halde',
+                    'haldes.nom as nom_halde',
+                    'haldes.coordonnees as coordonnees',
+                    'regions.nom as nom_region',
+                    'province_noms',
+                    'substance_noms',
+                    'groupehaldes.date_fin_publication',
+                    'carte',
+                    'groupehaldes.disponible',
+                    'haldes.qte_dechets as qte_dechets',
+                    'haldes.created_at as created_at',
+                    'groupehaldes.date_publication',
+                    'info_complementaires'
+                )
+                ->where('groupehaldes.disponible', '=', 1)
+                ->where('groupehaldes.date_publication', '<=', Carbon::now())
+                ->where('groupehaldes.date_fin_publication', '>=', Carbon::now())
                 ->where('haldes.nom', 'LIKE', "%{$search}%")
                 ->orwhere('haldes.coordonnees', 'LIKE', "%{$search}%")
                 ->orWhere('regions.nom', 'LIKE', "%{$search}%")
-                ->orWhere('province_prefecture.nom', 'LIKE', "%{$search}%")
+                ->orWhere('haldes.carte', 'LIKE', "%{$search}%")
+                ->orWhere('haldes.province_noms', 'LIKE', "%{$search}%")
+                ->orWhere('haldes.substance_noms', 'LIKE', "%{$search}%")
+
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
 
             $totalFiltered = Halde::leftjoin('regions', 'regions.id', '=', 'haldes.region_id')
-                ->join('province_prefecture', 'province_prefecture.id', '=', 'haldes.province_id')
-                ->select('haldes.id as id_halde', 'haldes.nom as nom_halde', 'haldes.coordonnees as coordonnees', 'regions.nom as nom_region', 'province_prefecture.nom as nom_province', 'haldes.qte_dechets as qte_dechets', 'haldes.created_at as created_at')
+                ->leftjoin('groupehaldes', 'groupehaldes.id', '=', 'haldes.groupe_id')
+
+                ->select(
+                    'haldes.id as id_halde',
+                    'haldes.nom as nom_halde',
+                    'haldes.coordonnees as coordonnees',
+                    'regions.nom as nom_region',
+                    'province_noms',
+                    'substance_noms',
+                    'groupehaldes.date_fin_publication',
+                    'carte',
+                    'groupehaldes.disponible',
+                    'haldes.qte_dechets as qte_dechets',
+                    'haldes.created_at as created_at',
+                    'groupehaldes.date_publication',
+                    'info_complementaires'
+                )
+                ->where('groupehaldes.disponible', '=', 1)
+                ->where('groupehaldes.date_publication', '<=', Carbon::now())
+                ->where('groupehaldes.date_fin_publication', '>=', Carbon::now())
                 ->where('haldes.nom', 'LIKE', "%{$search}%")
                 ->orwhere('haldes.coordonnees', 'LIKE', "%{$search}%")
                 ->orWhere('regions.nom', 'LIKE', "%{$search}%")
-                ->orWhere('province_prefecture.nom', 'LIKE', "%{$search}%")
+                ->orWhere('haldes.carte', 'LIKE', "%{$search}%")
+                ->orWhere('haldes.province_noms', 'LIKE', "%{$search}%")
+                ->orWhere('haldes.substance_noms', 'LIKE', "%{$search}%")
+
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
@@ -98,7 +163,10 @@ class HaldeServiceImpl implements HaldeService
             $nestedData['nom_halde']    = "<a href='{$show}' title='SHOW' >" . $halde->nom_halde . "</a>";
             $nestedData['coordonnees']  = $halde->coordonnees;
             $nestedData['nom_region']   = $halde->nom_region;
-            $nestedData['nom_province'] = $halde->nom_province;
+            $nestedData['province_noms'] = $halde->province_noms;
+            $nestedData['carte'] = $halde->carte;
+            $nestedData['info_complementaires'] = $halde->info_complementaires;
+            $nestedData['substance_noms'] = $halde->subtance_noms;
             $nestedData['qte_dechets']  = $halde->qte_dechets;
             //$date                       = new Date($halde->created_at);
             //$nestedData['created_at']   = $date->format('l j F Y H:i:s');
