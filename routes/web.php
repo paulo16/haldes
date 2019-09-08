@@ -32,10 +32,15 @@ Route::get('contact/index', 'ContactController@index')->name('contact.index');
 
 Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     Route::get('profil/index', 'ProfilController@index')->name('profil.index');
+    Route::get('profil/{id}/edit', 'ProfilController@edit')->name('profil.edit');
+    Route::post('profil/update/{id}', 'ProfilController@update')->name('profil.update');
 });
 
 Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     Route::resource('halde', 'HaldeController');
+    
+    Route::get('demande/lastdemandemois', 'DemandeController@lastdemande')->name('demandes.lastdemandemois');
+
     Route::get('demande/datahaldes-frontend', 'DemandeController@datahaldesfrontend')->name('demandes.datahaldesfrontend');
     Route::get('demande/datademandes-frontend', 'DemandeController@datademandes')->name('demandes.datademandes');
     Route::get('pdf/engagement-pdf/{id}', 'DemandeController@pdfengagement')->name('engagement-pdf');
@@ -61,7 +66,7 @@ Route::group(['prefix' => 'gestion-utilisateurs', 'middleware' => ['web', 'auth'
 Route::group(['prefix' => 'haldes', 'middleware' => ['web', 'auth', 'verified']], function () {
     //Haldes
     Route::post('haldes/delete/{id}', 'HaldeController@delete')->name('haldes.delete');
-    Route::get('haldes/data', 'HaldeController@data')->name('haldes.data');
+    Route::get('haldes/data', 'HaldeController@datahaldesbackend')->name('haldes.data');
     Route::resource('haldes', 'HaldeController');
 });
 

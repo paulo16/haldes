@@ -67,7 +67,7 @@ class HaldesImport implements ToCollection, WithBatchInserts, WithValidation
 
             Halde::firstOrCreate([
                 'nom' => trim($row[0]),
-                'coordonnees' => trim($row[1]) . '-' . trim($row[2]),
+                'coordonnees' => 'x : '.trim($row[1]) . '- y :' . trim($row[2]),
                 'province_noms' => trim($row[4]),
                 'substance_noms' => trim($row[6]),
                 'region_id' => $region->id,

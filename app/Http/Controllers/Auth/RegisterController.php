@@ -76,6 +76,11 @@ class RegisterController extends Controller
     {
         $nomstructure = Typestructure::select()->where('id', '=', $data['type_structure'])->first();
 
+        //$paysmaroc = Pays::select()->where('nom_fr', '=','Maroc')->first();
+
+
+
+
         if ($nomstructure->nom == "ENTREPRISE") {
             return Validator::make($data, [
                 'nom_responsable'         => ['required', 'string', 'max:255'],
@@ -84,7 +89,7 @@ class RegisterController extends Controller
                 'adresse_responsable'     => ['required', 'string', 'max:255'],
                 'mobile'                  => ['required', 'string', 'max:255'],
                 'email'                   => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password'                => ['required', 'string', 'min:8', 'confirmed','regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'],
+                'password'                => ['required', 'string', 'min:8', 'confirmed', 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'],
                 'siege_entreprise'        => ['required', 'string', 'max:255'],
                 'nationalite_entreprise'  => ['required', 'numeric'],
                 'capital_entreprise'      => ['required', 'numeric'],
@@ -98,8 +103,8 @@ class RegisterController extends Controller
                 'date_creation'           => 'required|date',
                 'nom_gerant'                     => ['required', 'string', 'max:255'],
                 'prenom_gerant'                     => ['required', 'string', 'max:255'],
-                'email_gerant'                     => ['required', 'string', 'max:255'],
-                'tel_gerant'                     => ['required', 'string', 'max:255'],
+                'adresse_gerant'                     => ['required', 'string', 'max:255'],
+
 
 
 
@@ -110,6 +115,7 @@ class RegisterController extends Controller
                 'prenom'                  => ['required', 'string', 'max:255'],
                 'nationalite_responsable' => ['required', 'numeric'],
                 'adresse_responsable'     => ['required', 'string', 'max:255'],
+                'capital_entreprise'      => ['required', 'numeric'],
                 'mobile'                  => ['required', 'string', 'max:255'],
                 'email'                   => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password'                => ['required', 'string', 'min:8', 'confirmed'],
@@ -156,6 +162,7 @@ class RegisterController extends Controller
                 'telephone'               => $data['fixe'],
                 'date_creation_structure' => $data['date_creation'],
                 'fax'                     => $data['fax_entreprise'],
+                'capital'                     => $data['capital_entreprise'],
                 'typestructure_id'        => $data['type_structure'],
             ]);
 
@@ -184,6 +191,7 @@ class RegisterController extends Controller
                 'telephone_fixe' => $data['fixe'],
                 'mobile'         => $data['mobile'],
                 'cin'            => $data['cin'],
+                'typepersonne_id'   => $data['type_personne'],
                 'structure_id'   => $structure->id,
                 'user_id'        => $user->id,
             ]);

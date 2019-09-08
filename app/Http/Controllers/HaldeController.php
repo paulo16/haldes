@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Halde;
 use App\Region;
+use App\Services\HaldeService;
 use App\Substanceexploitee;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Storage;
 
 class HaldeController extends Controller
 {
+
+    public function __construct(HaldeService $haldeService)
+    {
+        $this->haldeService   = $haldeService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -110,13 +116,13 @@ class HaldeController extends Controller
             'province' => 'required',
         ]);
         $halde = Halde::find($id);
-        $substance = $request->get('substance') ? $request->get('substance') : '';
+        $halde->substance_noms = $request->get('substance') ? $request->get('substance') : '';
         $halde->nom = $request->get('nom') ? $request->get('nom') : '';
         $halde->coordonnees = $request->get('coordonnees') ? $request->get('coordonnees') : '';
         $halde->region_id = $request->get('region') ? $request->get('region') : '';
-        $halde->province_id = $request->get('province') ? $request->get('province') : '';
+        $halde->province_noms = $request->get('province') ? $request->get('province') : '';
         $halde->qte_dechets = $request->get('dechets') ? $request->get('dechets') : '';
-        $halde->info_complementaires= $request->get('info_comp') ? $request->get('info_comp') : '';
+        $halde->info_complementaires = $request->get('info_comp') ? $request->get('info_comp') : '';
 
         if ($halde->save()) {
             \DB::table('halde_substanceexploitee')->insert([
@@ -136,68 +142,10 @@ class HaldeController extends Controller
         $halde = Halde::find($id);
         return $halde->delete();
     }
-    public function data(Request $request)
-    {
-        $haldes = \DB::table('haldes')->leftjoin('regions', 'regions.id', '=', 'haldes.region_id')
-            ->leftjoin('groupehaldes', 'groupehaldes.id', '=', 'haldes.groupe_id')
-            ->select([
-                'haldes.id as id',
-                'haldes.nom as nom_halde',
-                'haldes.coordonnees as coordonnees',
-                'regions.nom as nom_region',
-                'province_noms',
-                'substance_noms',
-                'groupehaldes.date_fin_publication',
-                'carte',
-                'groupehaldes.disponible',
-                'haldes.qte_dechets as qte_dechets',
-                'haldes.created_at as created_at',
-                'groupehaldes.date_publication',
-                'info_complementaires'
-            ]);
-        $datatables = Datatables::of($haldes)
-            ->addColumn('action', function ($model) {
-                $url_edit = '<a href=":url" class="green" ><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
-                $delete = '<a data-id=":id" class="red delete"><i class="ace-icon fa fa-trash-o bigger-130 "></i></a>';
-                $edit = route('haldes.edit', $model->id);
-                $del = str_replace(":id", $model->id, $delete);
-                $url_edit = str_replace(":url", $edit, $url_edit);
-                $action = '<div class="hidden-sm hidden-xs action-buttons">&nbsp;' . $url_edit . '&nbsp;' . $del . '<div>';
-                return $action;
-            })
-            ->editColumn('created_at', function ($model) {
-                return $model->created_at ? with(new Carbon($model->created_at))->format('d/m/Y') : '';
-            });
-        // les filtres 
-        // Global search function
-        if ($keyword = $request->get('search')['value']) {
-            //Debugbar::info($keyword);
-            // override haldes.name global search
-            $datatables->filterColumn('region', function ($query, $keyword) {
-                $query->where('regions.nom', 'like', "%" . $keyword . "%");
-            });
-            
-            $datatables->filterColumn('qte_dechets', function ($query, $keyword) {
-                $query->where('haldes.qte_dechets', 'like', "%" . $keyword . "%");
-            });
 
-            $datatables->filterColumn('province_noms', function ($query, $keyword) {
-                $query->where('haldes.province_noms', 'like', "%" . $keyword . "%");
-            });
-            $datatables->filterColumn('substance_noms', function ($query, $keyword) {
-                $query->where('haldes.substance_noms', 'like', "%" . $keyword . "%");
-            });
-            $datatables->filterColumn('carte', function ($query, $keyword) {
-                $query->where('haldes.carte', 'like', "%" . $keyword . "%");
-            });
-
-
-
-            $datatables->filterColumn('created_at', function ($query, $keyword) {
-                $query->whereRaw("DATE_FORMAT(created_at,'%d/%m/%Y') like ?", ["%$keyword%"]);
-            });
-        }
-        return $datatables->make(true);
+    public function datahaldesbackend(Request $request)
+    { 
+        return $this->haldeService->listehaldesback($request);
     }
     /**
      * Show the form for editing the specified resource.

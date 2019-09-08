@@ -20,7 +20,7 @@ Haldes | Resumé
                 <ul class="breadcrumb">
                     <li>
                         <h3 class="color-light text-uppercase animated fadeInUp visible">
-                        RÉSUMÉ DE LA DEMANDE
+                        RÉSUMÉ DE LA DEMANDE ELECTRONIQUE
                         </h3>
                     </li>
                 </ul>
@@ -44,7 +44,7 @@ Haldes | Resumé
             <!--/col-3-->
             <div class="col-sm-9">
                 <h3 >
-                RÉSUMÉ DE VOTRE DEMANDE
+                RÉSUMÉ DE VOTRE DEMANDE ELECTRONIQUE
                 </h3>
                   <hr><br>
                 <div class="col-sm-12 text-right pt25">
@@ -137,4 +137,3 @@ Haldes | Resumé
         <!--/row-->
     </div>
     @stop
-</div>

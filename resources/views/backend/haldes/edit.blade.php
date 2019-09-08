@@ -68,26 +68,30 @@
             <div class="row">
               <div class="form-group{{ $errors->has('province') ? ' has-error' : '' }}">
                 <label for="province">Province*</label>
-                <select class="form-control" name="province" id="province">
+                <input type="text" name="province_noms" parsley-trigger="change" class="form-control" id="province_noms"
+                value="{{ old('province_noms',$halde->province_noms) }}"
+                {{-- <select class="form-control" name="province" id="province">
                   @foreach ($provinces as $r)
                   <option value="{{$r->id}}" {{(old('province')==$r->id)? 'selected':''}}>
                     {{$r->nom}}
                   </option>
                   @endforeach
-                </select>
+                </select> --}}
               </div>
             </div>
 
             <div class="row">
               <div class="form-group{{ $errors->has('substance') ? ' has-error' : '' }}">
-                <label for="substance">Substance exploitée*</label>
-                <select class="form-control" name="substance" id="substance">
+                <label for="substance">Substance exploitées*</label>
+                <input type="text" name="substance" parsley-trigger="change" class="form-control" id="substance"
+                  value="{{ old('substance',$halde->substance_noms) }}">
+                {{-- <select class="form-control" name="substance" id="substance">
                   @foreach ($substances as $r)
                   <option value="{{$r['id']}}" {{(old('substance')==$r['id'])? 'selected':''}}>
-                    {{$r['nom']}}
-                  </option>
-                  @endforeach
-                </select>
+                {{$r['nom']}}
+                </option>
+                @endforeach
+                </select> --}}
               </div>
             </div>
 
@@ -105,7 +109,8 @@
 
             <div class="form-group{{ $errors->has('info_comp') ? ' has-error' : '' }}">
               <label for="info_comp">Informations complémentaire </label>
-              <input type="text" name="info_comp" class="form-control" id="info_comp" value="{{ old('info_comp',$halde->info_complementaires) }}">
+              <textarea type="text" name="info_comp" class="form-control" id="info_comp"
+                value="{{ old('info_comp',$halde->info_complementaires) }}"></textarea>
 
               @if ($errors->has('info_comp'))
               <span class="help-block">

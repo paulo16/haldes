@@ -39,7 +39,7 @@
                     <div class="col-md-12">
                         <h4 class="text-center">
                             <b>
-                                INFORMATIONS SUR LE REPRESENTANT
+                                INFORMATIONS SUR LE REPRESENTANT / COOPERATIVE
                             </b>
                         </h4>
                     </div>
@@ -115,9 +115,15 @@
                                 <select class="form-control" id="nationalite_responsable" name="nationalite_responsable"
                                     value="{{ old('nationalite_responsable')}}">
                                     @foreach ($pays as $p)
+                                    @if ($p['nom_fr'] == "Maroc")
+                                    <option value="{{$p['id']}}" selected>
+                                        {{$p['nom_fr']}}
+                                    </option>
+                                    @else
                                     <option value="{{$p['id']}}">
                                         {{$p['nom_fr']}}
                                     </option>
+                                    @endif
                                     @endforeach
                                 </select>
                                 @error('nationalite_responsable')
@@ -184,7 +190,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
-                                    TYPE
+                                    TITRE
                                     <span class="color-red">
                                         *
                                     </span>
@@ -211,7 +217,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
-                                    CIN
+                                    CIN / PASSEPORT
                                     <span class="color-red">
                                         *
                                     </span>
@@ -360,9 +366,15 @@
                                 <select class="form-control" id="nationalite_entreprise" name="nationalite_entreprise"
                                     value="{{ old('nationalite_entreprise')}}">
                                     @foreach ($pays as $p)
+                                    @if ($p['nom_fr'] == "Maroc")
+                                    <option value="{{$p['id']}}" selected>
+                                        {{$p['nom_fr']}}
+                                    </option>
+                                    @else
                                     <option value="{{$p['id']}}">
                                         {{$p['nom_fr']}}
                                     </option>
+                                    @endif
                                     @endforeach
                                 </select>
                                 @error('nationalite_entreprise')
@@ -419,27 +431,6 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
-                                    ACTIONNAIRES / MEMBRES
-                                    <span class="color-red">
-                                        *
-                                    </span>
-                                </label>
-                                <input class="input-md input-circle form-control" disabled id="nombre_personne"
-                                    name="nombre_personne" placeholder="" type="number"
-                                    value="{{ old('nombre_personne',0)}}">
-                                @error('nombre_personne')
-                                <span class="color-red">
-                                    <code>
-                                    {{ $message }}
-                                    </code>
-                                </span>
-                                @enderror
-                                </input>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>
                                     ICE
                                     <span class="color-red">
                                         *
@@ -457,8 +448,6 @@
                                 </input>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
@@ -479,6 +468,8 @@
                                 </input>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
@@ -533,8 +524,6 @@
                                 </input>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
@@ -552,6 +541,8 @@
                                 </input>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
@@ -590,13 +581,12 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     EMAIL GERANT
                                     <span class="color-red">
-                                        *
+
                                     </span>
                                 </label>
 
@@ -612,15 +602,12 @@
                                 </input>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     TELEPHONE GERANT
                                     <span class="color-red">
-                                        *
+
                                     </span>
                                 </label>
                                 <input class="input-md input-circle form-control" name="tel_gerant" placeholder=""
@@ -634,11 +621,15 @@
                                 @enderror
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-12">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     ADRESSE GERANT
+                                    <span class="color-red">
+                                        *
+                                    </span>
                                 </label>
                                 <input class="input-md input-circle form-control" name="adresse_gerant" placeholder=""
                                     type="adresse_gerant" value="{{ old('adresse_gerant')}}">
@@ -657,8 +648,31 @@
 
                 <div class="row">
                     <hr>
-                    <div class="col-md-6">
-                        <p><button class="add_fields">AJOUTER DES ACTIONNAIRES </button></p>
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <button class="add_fields">AJOUTER DES ACTIONNAIRES </button>
+                        </div>
+                        <div class="col-md-6 float-right">
+                            <div class="form-group">
+                                <label>
+                                    NOMBRE ACTIONNAIRES / MEMBRES
+                                    <span class="color-red">
+
+                                    </span>
+                                </label>
+                                <input class="input-md input-circle form-control" disabled id="nombre_personne"
+                                    name="nombre_personne" placeholder="" type="number"
+                                    value="{{ old('nombre_personne',0)}}">
+                                @error('nombre_personne')
+                                <span class="color-red">
+                                    <code>
+                                {{ $message }}
+                                </code>
+                                </span>
+                                @enderror
+                                </input>
+                            </div>
+                        </div>
                     </div>
                     <div class="div_wrapper">
                         <div class="col-md-12">
@@ -713,9 +727,9 @@
                     //add input field
                     $(wrapper).append(
                         '<div class="col-md-12 pb10">'+
-                            '<div class="col-md-3"><input required placeholder="Nom actionnaire" class="input-md input-circle form-control" type="text" name="input_nom[]" /></div>'+
-                            '<div class="col-md-3"><input required placeholder="Prénom actionnaire"  class="input-md input-circle form-control" type="text" name="input_prenom[]" /></div>'+
-                            '<div class="col-md-3"><input required placeholder="Part Social exple:10%" class="input-md input-circle form-control" type="text" name="input_part[]" /></div>'+
+                            '<div class="col-md-3"><input required placeholder="Nom actionnaire/Raison saocial" class="input-md input-circle form-control" type="text" name="input_nom[]" /></div>'+
+                            '<div class="col-md-3"><input required placeholder="Prénom actionnaire /Type societé"  class="input-md input-circle form-control" type="text" name="input_prenom[]" /></div>'+
+                            '<div class="col-md-3"><input required placeholder="Part Social  ,exemple:10%" class="input-md input-circle form-control" type="text" name="input_part[]" /></div>'+
                             '<div class="col-md-3"><a href="javascript:void(0);" class="remove_field">supprimer</a></div>'+
                         '</div>'
                     );

@@ -58,11 +58,19 @@
                             {{ Lang::get('contenu.demande.substances')}}
                         </th>
                         <th>
+                            {{ Lang::get('contenu.demande.reserver')}}
+                        </th>
+                        <th>
+                            {{ Lang::get('contenu.demande.publication')}}
+                        </th>
+                        <th>
                             {{ Lang::get('contenu.demande.info_complementaires')}}
                         </th>
+
                         <th>
                             {{ Lang::get('contenu.demande.action')}}
                         </th>
+
                     </tr>
                 </thead>
             </table>
@@ -78,12 +86,28 @@
 
 @section('js')
 <!-- Datatables-->
-<script src="{{asset('assets/backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/backend/plugins/datatables/dataTables.bootstrap.js')}}"></script>
-<script src="{{asset('assets/backend/plugins/datatables/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('assets/backend/plugins/datatables/vfs_fonts.js')}}"></script>
-<script src="{{asset('assets/backend/plugins/datatables/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('assets/backend/plugins/datatables/responsive.bootstrap.min.js')}}"></script>
+<script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.min.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/dataTables.buttons.min.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/buttons.bootstrap.min.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/pdfmake.min.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/vfs_fonts.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/dataTables.responsive.min.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/buttons.html5.min.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/dataTables.colVis.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/buttons.print.min.js') }}">
+</script>
+<script src="{{ asset('assets/backend/plugins/datatables/responsive.bootstrap.min.js') }}">
+</script>
 <script>
     $(document).ready(function () {
             var table = $('#haldes-table')
@@ -110,23 +134,56 @@
                             "sSortDescending": "{{ Lang::get('datatable.sSortDescending') }}"
                         }
                     },
+                    order: [[ 0, "desc" ]],
+                    pageLength: 6,
+                    lengthMenu: [
+                    [6, 30, 50, 1000],
+                    [6, 30, 50, "1000"]
+                    ],
                     processing: true,
                     serverSide: true,
                     ajax: '{!! route('haldes.data') !!}',
                     data: {_token: '{{ csrf_token() }}'},
-                    dom: 'Bfrtip',
-                    buttons: ['csv', 'excel', 'pdf'],
-                    columns: [
-                        {data: 'nom_halde', name: 'haldes.nom'},
-                        {data: 'coordonnees', name: 'coordonnees'},
-                        {data: 'carte', name: 'carte'},
-                        {data: 'nom_region', name: 'region'},
-                        {data: 'province_noms', name: 'province_noms'},
-                        {data: 'qte_dechets', name: 'qte_dechets'},
-                        {data: 'substance_noms', name: 'substance_noms'},
-                        {data: 'info_complementaires', name: 'info_complementaires'},
-                        {data: 'action', name: 'action'}
-                    ],
+                    dom: "<'row'<'col-sm-3'l><'col-sm-4'B><'col-sm-5'f>>" +
+                         "<'row'<'col-sm-12'tr>>" +
+                         "<'row'<'col-sm-12'ip>>",
+                    buttons: [
+                        {
+                            extend: "pdfHtml5",
+                            title: "Plateforme Haldes-Terrils",
+                            exportOptions: {
+                                columns: [0,1,2,3,4,5,6,7,8]
+                            }
+                        },
+                        {
+                            extend: "csvHtml5",
+                            title: "Plateforme Haldes-Terrils",
+                            exportOptions: {
+                                columns: [0,1,2,3,4,5,6,7,8]
+                            }
+                        },
+                        {
+                            extend: "print",
+                            title: "Plateforme Haldes-Terrils",
+                            text: "imprimer",
+                            exportOptions: {
+                                columns: [0,1,2,3,4,5,6,7,8]
+                            }
+                        },
+                ],
+                columns: [
+                    {data: 'nom_halde', name: 'haldes.nom'},
+                    {data: 'coordonnees', name: 'coordonnees'},
+                    {data: 'carte', name: 'carte'},
+                    {data: 'nom_region', name: 'nom_region'},
+                    {data: 'province_noms', name: 'province_noms'},
+                    {data: 'qte_dechets', name: 'qte_dechets'},
+                    {data: 'substance_noms', name: 'substance_noms'},
+                    {data: 'reserver', name: 'reserver'},
+                    {data: 'date_publication', name: 'date_publication'},
+                    {data: 'info_complementaires', name: 'info_complementaires'},
+                    {data: 'action', name: 'action'}
+                ],
 
                 });
 

@@ -54,8 +54,34 @@ class DemandeServiceImpl implements DemandeService
                 ->leftJoin('pays as pp', 'personnes.nationalite', '=', 'pp.id')
                 ->leftJoin('pays as ps', 'structures.nationalite', '=', 'ps.id')
                 ->leftJoin('typestructures', 'typestructures.id', '=', 'structures.typestructure_id')
-                ->select('personnes.nom as nom_p', 'personnes.prenom as prenom_p', 'pp.nom_fr as nationalite_p', 'personnes.adresse as adresse_p', 'personnes.telephone_fixe as fixe_p', 'personnes.mobile as mobile_p', 'structures.nom as nom_s', 'structures.siege as siege', 'structures.capital as capital', 'typestructures.nom as type_s', 'ps.nom_fr as nationalite_s',
-                    'entreprises.raison_social as raison_social', 'entreprises.registre_commerce as registre_commerce', 'entreprises.nombre_actionnaires as nombre_actionnaires', 'entreprises.ice as ice', 'entreprises.cnss as cnss', 'entreprises.if as if', 'users.email as email', 'haldes.nom as nom_halde', 'haldes.coordonnees as coordonnees', 'haldes.qte_dechets as qte_dechets', 'regions.nom as region', 'province_prefecture.nom as province', 'demandes.created_at as date_creation', 'demandes.nom as identifiant', 'demandes.id as id_demande', 'demandes.etat as etat'
+                ->select(
+                    'personnes.nom as nom_p',
+                    'personnes.prenom as prenom_p',
+                    'pp.nom_fr as nationalite_p',
+                    'personnes.adresse as adresse_p',
+                    'personnes.telephone_fixe as fixe_p',
+                    'personnes.mobile as mobile_p',
+                    'structures.nom as nom_s',
+                    'structures.siege as siege',
+                    'structures.capital as capital',
+                    'typestructures.nom as type_s',
+                    'ps.nom_fr as nationalite_s',
+                    'entreprises.raison_social as raison_social',
+                    'entreprises.registre_commerce as registre_commerce',
+                    'entreprises.nombre_actionnaires as nombre_actionnaires',
+                    'entreprises.ice as ice',
+                    'entreprises.cnss as cnss',
+                    'entreprises.if as if',
+                    'users.email as email',
+                    'haldes.nom as nom_halde',
+                    'haldes.coordonnees as coordonnees',
+                    'haldes.qte_dechets as qte_dechets',
+                    'regions.nom as region',
+                    'province_prefecture.nom as province',
+                    'demandes.created_at as date_creation',
+                    'demandes.nom as identifiant',
+                    'demandes.id as id_demande',
+                    'demandes.etat as etat'
                 )
                 ->where('personnes.id', $personne->id)
                 ->offset($start)
@@ -74,8 +100,34 @@ class DemandeServiceImpl implements DemandeService
                 ->leftJoin('pays as pp', 'personnes.nationalite', '=', 'pp.id')
                 ->leftJoin('pays as ps', 'structures.nationalite', '=', 'ps.id')
                 ->leftJoin('typestructures', 'typestructures.id', '=', 'structures.typestructure_id')
-                ->select('personnes.nom as nom_p', 'personnes.prenom as prenom_p', 'pp.nom_fr as nationalite_p', 'personnes.adresse as adresse_p', 'personnes.telephone_fixe as fixe_p', 'personnes.mobile as mobile_p', 'structures.nom as nom_s', 'structures.siege as siege', 'structures.capital as capital', 'typestructures.nom as type_s', 'ps.nom_fr as nationalite_s',
-                    'entreprises.raison_social as raison_social', 'entreprises.registre_commerce as registre_commerce', 'entreprises.nombre_actionnaires as nombre_actionnaires', 'entreprises.ice as ice', 'entreprises.cnss as cnss', 'entreprises.if as if', 'users.email as email', 'haldes.nom as nom_halde', 'haldes.coordonnees as coordonnees', 'haldes.qte_dechets as qte_dechets', 'regions.nom as region', 'province_prefecture.nom as province', 'demandes.created_at as date_creation', 'demandes.nom as identifiant', 'demandes.id as id_demande', 'demandes.etat as etat'
+                ->select(
+                    'personnes.nom as nom_p',
+                    'personnes.prenom as prenom_p',
+                    'pp.nom_fr as nationalite_p',
+                    'personnes.adresse as adresse_p',
+                    'personnes.telephone_fixe as fixe_p',
+                    'personnes.mobile as mobile_p',
+                    'structures.nom as nom_s',
+                    'structures.siege as siege',
+                    'structures.capital as capital',
+                    'typestructures.nom as type_s',
+                    'ps.nom_fr as nationalite_s',
+                    'entreprises.raison_social as raison_social',
+                    'entreprises.registre_commerce as registre_commerce',
+                    'entreprises.nombre_actionnaires as nombre_actionnaires',
+                    'entreprises.ice as ice',
+                    'entreprises.cnss as cnss',
+                    'entreprises.if as if',
+                    'users.email as email',
+                    'haldes.nom as nom_halde',
+                    'haldes.coordonnees as coordonnees',
+                    'haldes.qte_dechets as qte_dechets',
+                    'regions.nom as region',
+                    'province_prefecture.nom as province',
+                    'demandes.created_at as date_creation',
+                    'demandes.nom as identifiant',
+                    'demandes.id as id_demande',
+                    'demandes.etat as etat'
                 )
                 ->where('personnes.id', $personne->id)
                 ->orwhere('haldes.nom', 'LIKE', "%{$search}%")
@@ -97,8 +149,34 @@ class DemandeServiceImpl implements DemandeService
                 ->leftJoin('pays as pp', 'personnes.nationalite', '=', 'pp.id')
                 ->leftJoin('pays as ps', 'structures.nationalite', '=', 'ps.id')
                 ->leftJoin('typestructures', 'typestructures.id', '=', 'structures.typestructure_id')
-                ->select('personnes.nom as nom_p', 'personnes.prenom as prenom_p', 'pp.nom_fr as nationalite_p', 'personnes.adresse as adresse_p', 'personnes.telephone_fixe as fixe_p', 'personnes.mobile as mobile_p', 'structures.nom as nom_s', 'structures.siege as siege', 'structures.capital as capital', 'typestructures.nom as type_s', 'ps.nom_fr as nationalite_s',
-                    'entreprises.raison_social as raison_social', 'entreprises.registre_commerce as registre_commerce', 'entreprises.nombre_actionnaires as nombre_actionnaires', 'entreprises.ice as ice', 'entreprises.cnss as cnss', 'entreprises.if as if', 'users.email as email', 'haldes.nom as nom_halde', 'haldes.coordonnees as coordonnees', 'haldes.qte_dechets as qte_dechets', 'regions.nom as region', 'province_prefecture.nom as province', 'demandes.created_at as date_creation', 'demandes.nom as identifiant', 'demandes.id as id_demande', 'demandes.etat as etat'
+                ->select(
+                    'personnes.nom as nom_p',
+                    'personnes.prenom as prenom_p',
+                    'pp.nom_fr as nationalite_p',
+                    'personnes.adresse as adresse_p',
+                    'personnes.telephone_fixe as fixe_p',
+                    'personnes.mobile as mobile_p',
+                    'structures.nom as nom_s',
+                    'structures.siege as siege',
+                    'structures.capital as capital',
+                    'typestructures.nom as type_s',
+                    'ps.nom_fr as nationalite_s',
+                    'entreprises.raison_social as raison_social',
+                    'entreprises.registre_commerce as registre_commerce',
+                    'entreprises.nombre_actionnaires as nombre_actionnaires',
+                    'entreprises.ice as ice',
+                    'entreprises.cnss as cnss',
+                    'entreprises.if as if',
+                    'users.email as email',
+                    'haldes.nom as nom_halde',
+                    'haldes.coordonnees as coordonnees',
+                    'haldes.qte_dechets as qte_dechets',
+                    'regions.nom as region',
+                    'province_prefecture.nom as province',
+                    'demandes.created_at as date_creation',
+                    'demandes.nom as identifiant',
+                    'demandes.id as id_demande',
+                    'demandes.etat as etat'
                 )
                 ->where('personnes.id', $personne->id)
                 ->orwhere('haldes.nom', 'LIKE', "%{$search}%")
@@ -134,7 +212,6 @@ class DemandeServiceImpl implements DemandeService
                 //$nestedData['created_at']   = $date->format('l j F Y H:i:s');
 
                 $data[] = $nestedData;
-
             }
         }
 
@@ -153,5 +230,35 @@ class DemandeServiceImpl implements DemandeService
         return Demande::count();
     }
 
+    public function timepass($iddemandeur)
+    {
+        $datenow     = new \DateTime();
+        $datenow     = $datenow->format('Y-m-d H:i:s');
+        $lastdemande = \DB::table('demandes')->where('personne_id', $iddemandeur)->latest('id')->first();
 
+        $months = null;
+        $minutes = null;
+        if (isset($lastdemande)) {
+            $diff = strtotime($datenow) - strtotime($lastdemande->created_at);
+
+            $years = floor($diff / (365 * 60 * 60 * 24));
+            $months = floor(($diff - $years * 365 * 60 * 60 * 24)
+                / (30 * 60 * 60 * 24));
+
+            // $days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+            //     $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+            // $hours = floor(($diff - $years * 365 * 60 * 60 * 24
+            //     - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24)
+            //     / (60 * 60));
+            // $minutes = floor(($diff - $years * 365 * 60 * 60 * 24
+            //     - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
+            //     - $hours * 60 * 60) / 60);
+            // $seconds = floor(($diff - $years * 365 * 60 * 60 * 24
+            //     - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
+            //     - $hours * 60 * 60 - $minutes * 60));
+        }
+
+        return $months;
+    }
 }

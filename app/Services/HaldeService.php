@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
  *Intefaces des Users
  **/
 
-interface HaldeService {
+interface HaldeService
+{
 
 	public function listhaldesfrontend(Request $request);
+	
+	public function listehaldesback(Request $request);
 
 	public function update(Request $request, $id);
 
@@ -21,5 +24,4 @@ interface HaldeService {
 	public function delete($id);
 
 	public function count();
-
 }

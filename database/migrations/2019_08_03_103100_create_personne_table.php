@@ -26,6 +26,7 @@ class CreatePersonneTable extends Migration
             $table->unsignedInteger('structure_id')->nullable();
             $table->unsignedInteger('part_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedInteger('typepersonne_id')->nullable();
             $table->timestamps(2);
         });
 
@@ -50,6 +51,12 @@ class CreatePersonneTable extends Migration
                 ->onUpdate('cascade');
         });
 
+        Schema::table('personnes', function (Blueprint $table) {
+            $table->foreign('typepersonne_id')->references('id')
+                ->on('typepersonnes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+        });
     }
 
     /**
@@ -64,7 +71,7 @@ class CreatePersonneTable extends Migration
             $table->dropForeign(['user_id']);
             $table->dropForeign(['part_id']);
             $table->dropForeign(['structure_id']);
-
+            $table->dropForeign(['typepersonne_id']);
         });
         Schema::dropIfExists('personnes');
     }

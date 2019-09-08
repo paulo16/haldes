@@ -167,7 +167,7 @@
                 pageLength: 6,
                 lengthMenu: [
                 [6, 30, 50, 1000],
-                [6, 30, 50, "tous"]
+                [6, 30, 50, "1000"]
                 ],
                 processing: true,
                 serverSide: true,
@@ -181,14 +181,14 @@
                     extend: "pdfHtml5",
                     title: "Plateforme Haldes-Terrils",
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6,7,8]
                     }
                 },
                 {
                     extend: "csvHtml5",
                     title: "Plateforme Haldes-Terrils",
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6,7,8]
                     }
                 },
                 {
@@ -196,7 +196,7 @@
                     title: "Plateforme Haldes-Terrils",
                     text: "imprimer",
                     exportOptions: {
-                        columns: [0,1,2,3,4]
+                        columns: [0,1,2,3,4,5,6,7,8]
                     }
                 },
                 ],
@@ -227,7 +227,16 @@
                 var id = $(this).data('id');
                 var swal_ot = {
                     title: "{{Lang::get('contenu.alert.sure')}}",
-                    text: "{{Lang::get('contenu.alert.subtext_sure')}}",
+                    text: ""+
+                       "Je soussigné …………………..…….………. titulaire de la CIN n°……..………….. et "+ 
+                        "représentant de la société/président de la coopérative ……………………………… atteste par la " +
+                        "présente, mon engagement à remettre à la Direction Régionale du Département "+
+                        "de l’Energie et des Mines de ……RABAT………., l’ensemble des pièces constituant "+
+                        "le dossier de la demande d’autorisation d’Exploitation des Haldes et Terrils "+ 
+                        "y compris le récépissé de versement de la rémunération "+
+                        "des services rendus au titre de l’institution de ladite "+
+                        "autorisation, et ce, dans un délai ne dépassant pas 10 jours à "+
+                        "compter de la date de réservation du site minier/ à compter du ………………………….",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonText: "{{Lang::get('contenu.alert.confirm_btn')}}",
@@ -263,11 +272,12 @@
             }else{
 
                 swal(
-                    'Vous ne pouver pas éffectuer de demande, car vous n\'avez pas selectionner le site à exploiter , notez que celui si peut etre bloqué si la dernière demande est en traitement , acceptée ou rejetée, dans ce cas vous devez patientez respectivement 10 jours , 3mois ou 4 mois '
+                    'Vous ne pouver pas éffectuer de demande, car vous n\'avez pas selectionner le site à exploiter'
                     );
             }
 
         });
+
     });
     </script>
     @endsection

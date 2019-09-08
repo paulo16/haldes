@@ -19,7 +19,7 @@ return [
         'nom_region'                                            => 'Region',
         'coordonnees'                                           => 'Coordonnées',
         'nom_province'                                          => 'Province',
-        'qte_dechets'                                           => 'Qte déchets',
+        'qte_dechets'                                           => 'Qte estimative',
         'action_reserver'                                       => 'reserver',
 
         'nom_resp'                                              => 'Nom resp',
@@ -34,22 +34,12 @@ return [
         'carte'                                           => 'carte',
         'substances'                                           => 'substances',
         'info_complementaires'                                           => 'informations',
+        'publication'                                           => 'publication',
+        'reserver'                                           => 'reserver',
 
     ],
 
-    'alert'   => [
-        /////////sweet alert ///////////
-        'oops'            => 'Petit Problème, ',
-        'problem_server'  => 'coté serveur ,veillez réessayer !',
-        'demande_titre'   => 'Demande',
-        'demande_message' => 'Demande bien éffectuée !',
-        'sure'            => 'Etês-vous sûr de votre choix de site(terrils) ?',
-        'subtext_sure'    => 'Après envoi de votre demande vous ne pourriez plus faire de demande pendant un certains temps !',
-        'confirm_btn'     => 'Oui, envoyer !',
-        'cancel_btn'      => 'Non, Annuler !',
-        'env_imp'         => 'envoi impossible!',
-        'sub_env'         => 'demande envoyée, vueillez consulter votre mail regulièrement pour recevoir notre reponse dans les 10 jours !',
-    ],
+
     "admin" => [
         'config' => 'Paramètres',
         'sign_in' => 'Se connecter',
@@ -95,7 +85,7 @@ return [
         'coordonnees' => 'coordonnees',
         'region' => 'regions',
         'province' => 'provinces',
-        'qtedechets' => 'qte dechets',
+        'qtedechets' => 'qte estimative',
         'substances' => 'substances',
         'action' => 'action',
     ],
@@ -182,6 +172,33 @@ return [
         'sub_publier' => '',
         'impossible_pub' => 'Impossible de (dé)publier cette liste',
         'sub_impossible_pub' => 'Il est possible que certains élements soient déja utilisés  dans les demande de haldes',
+    ],
+
+    'profil' => [
+        'modifier' => 'Modifier votre profil',
+        'sure' => 'Confirmez les informations de votre profil',
+        'subtext_sure' => "Avant de continuer vous devez verifier les informations de votre compte, si elles ne sont pas exactes vueillez les modifier avant de continuer, car une fois votre demande faites vous ne pourriez plus modifier vos informations",
+        'confirm_btn' => 'je confirme',
+        'confirm_btn_lu' => 'je confirme avoir lu',
+        'cancel_btn' => 'annuler',
+        'infodemande' => 'Note importante à savoir !',
+        'sub_infodemande' => "Vous devez savoir que après la soumission de votre demande vous de pourriez plus éffectuer de demande avant une la nouvelle publication de haldes(terrils)",
+        'impossible' => 'Vous ne pouvez pas faire de demande pour le moment ',
+        'sub_impossible' => 'Vous avez des demandes en cours, vueillez patienter , merci !',
+
+    ],
+    'alert'   => [
+        /////////sweet alert ///////////
+        'oops'            => 'Petit Problème, ',
+        'problem_server'  => 'coté serveur ,veillez réessayer !',
+        'demande_titre'   => 'Demande',
+        'demande_message' => 'Demande bien éffectuée !',
+        'sure'            => 'Engagement',
+        'subtext_sure'    => 'Après envoi de votre demande vous ne pourriez plus faire de demande pendant un certains temps !',
+        'confirm_btn'     => 'Oui, envoyer !',
+        'cancel_btn'      => 'Non, Annuler !',
+        'env_imp'         => 'envoi impossible!',
+        'sub_env'         => 'demande envoyée, vueillez consulter votre mail regulièrement pour recevoir notre reponse dans les 10 jours !',
     ],
 
 

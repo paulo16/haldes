@@ -3,7 +3,7 @@
 <!-- Mirrored from myboodesign.com/pasific/shortcode-headings.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 09:56:05 GMT -->
 
 <head>
-    
+
     @yield('head')
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/magnific/magic.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/magnific/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/magnific/magnific-popup-zoom-gallery.css') }}">
-    <link href="{{asset('assets/frontend/css/sweetalert.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/frontend/css/sweetalert.css')}}" rel="stylesheet" type="text/css" />
     <!-- Load OWL Carousel CSS 
         =====================================-->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/owl-carousel/owl.carousel.css') }}">
@@ -112,7 +112,63 @@
     <script src="{{asset('assets/frontend/js/sweetalert.min.js') }}"></script>
     @yield('js')
     <script src="{{asset('assets/frontend/js/main/main.js') }}"></script>
-    <!-- Mirrored from myboodesign.com/pasific/shortcode-headings.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 09:56:05 GMT -->
+    <script>
+        $(document).ready(function () {
+
+            ////////// Click sur créer demande //////////
+           $(".creerdemande").click(function (e) {
+
+                e.preventDefault();
+
+                var swal_ot = {
+                        title: "{{Lang::get('contenu.profil.sure')}}",
+                        text: "{{Lang::get('contenu.profil.subtext_sure')}}",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "{{Lang::get('contenu.profil.confirm_btn')}}",
+                        cancelButtonText: "{{Lang::get('contenu.profil.cancel_btn')}}",
+                        closeOnConfirm: false
+                    };
+                var swal_ot2 = {
+                        title: "{{Lang::get('contenu.profil.infodemande')}}",
+                        text: "{{Lang::get('contenu.profil.sub_infodemande')}}",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonText: "{{Lang::get('contenu.profil.confirm_btn_lu')}}",
+                        cancelButtonText: "{{Lang::get('contenu.profil.cancel_btn')}}",
+                        closeOnConfirm: false
+                    };
+
+               
+                    $.ajax({
+                        url:"{{route('demandes.lastdemandemois')}}",
+                        type: 'GET',
+                        data: {_token: '{{ csrf_token() }}'},
+                    }).done(function (result) {
+                        //var rep= JSON.stringify(reponse);
+                        console.log(result);
+                        if (result.reponse == "impossible") {
+                            swal("{{Lang::get('contenu.profil.impossible')}}", "{{Lang::get('contenu.profil.sub_impossible')}}", "warning");
+
+                        } else {
+                            swal(swal_ot, function () {
+
+                                swal(swal_ot2, function () {
+                                    location="{{route('demande.create')}}" 
+                                });
+                            });
+
+                        }
+                        
+
+                    }).error(function () {
+                        swal("{{Lang::get('contenu.admin.oops')}}", "{{Lang::get('contenu.admin.problem_server')}}", "error");
+                    });
+             
+
+            });
+        });
+    </script>
 </body>
 
 </html>

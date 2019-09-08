@@ -14,4 +14,6 @@ interface DemandeService {
 
 	public function count();
 
+	public function timepass($iddemandeur);
+
 }
