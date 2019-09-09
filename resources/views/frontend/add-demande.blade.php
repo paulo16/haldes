@@ -224,50 +224,65 @@
             var checker= $("input[name='halde']:checked").val() ;
 
             if(checker){
-                var id = $(this).data('id');
-                var swal_ot = {
-                    title: "{{Lang::get('contenu.alert.sure')}}",
-                    text: ""+
-                       "Je soussigné …………………..…….………. titulaire de la CIN n°……..………….. et "+ 
-                        "représentant de la société/président de la coopérative ……………………………… atteste par la " +
-                        "présente, mon engagement à remettre à la Direction Régionale du Département "+
-                        "de l’Energie et des Mines de ……RABAT………., l’ensemble des pièces constituant "+
-                        "le dossier de la demande d’autorisation d’Exploitation des Haldes et Terrils "+ 
-                        "y compris le récépissé de versement de la rémunération "+
-                        "des services rendus au titre de l’institution de ladite "+
-                        "autorisation, et ce, dans un délai ne dépassant pas 10 jours à "+
-                        "compter de la date de réservation du site minier/ à compter du ………………………….",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "{{Lang::get('contenu.alert.confirm_btn')}}",
-                    cancelButtonText: "{{Lang::get('contenu.alert.cancel_btn')}}",
-                    closeOnConfirm: false
-                };
+                $.ajax({
+                        url:"{{route('demandes.infodemandeur')}}",
+                        type: 'GET',
+                        data: {_token: '{{ csrf_token() }}'},
+                    }).done(function (result) {
+                        //var rep= JSON.stringify(reponse);
+                        console.log(result);
+                        if (result) {
+                                var id = $(this).data('id');
+                                var swal_ot = {
+                                    title: "{{Lang::get('contenu.alert.sure')}}",
+                                    text: ""+
+                                    "Je soussigné …"+result.nom+"……. titulaire de la CIN n°…"+result.cin+"….. et "+ 
+                                        "représentant de la société/président de la coopérative …"+result.entreprise+"…… atteste par la " +
+                                        "présente, mon engagement à remettre à la Direction Régionale du Département "+
+                                        "de l’Energie et des Mines de ……RABAT………., l’ensemble des pièces constituant "+
+                                        "le dossier de la demande d’autorisation d’Exploitation des Haldes et Terrils "+ 
+                                        "y compris le récépissé de versement de la rémunération "+
+                                        "des services rendus au titre de l’institution de la dite "+
+                                        "autorisation, et ce, dans un délai ne dépassant pas 10 jours à "+
+                                        "compter de la date de réservation du site minier/ à compter du ……"+result.date+"……….",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonText: "{{Lang::get('contenu.alert.confirm_btn')}}",
+                                    cancelButtonText: "{{Lang::get('contenu.alert.cancel_btn')}}",
+                                    closeOnConfirm: false
+                                };
 
-                var swal_ot2 ={
-                    text : ""
-                }
-                var url = '{{ route("demande.store") }}';
+                                var swal_ot2 ={
+                                    text : ""
+                                }
+                                var url = '{{ route("demande.store") }}';
 
-                var formData = {
-                    typedemande: $('#type_demande').val(),
-                    halde: $("input[name='halde']:checked").val(),
-                };
-                var    type = "POST";
-                var redirection = '{{ route("demande.show",":id") }}';
-                swal(swal_ot, function () {
-                    $.ajax({
-                        type: type,
-                        url: url,
-                        data: formData,
-                    }).done(function (demande) {
+                                var formData = {
+                                    typedemande: $('#type_demande').val(),
+                                    halde: $("input[name='halde']:checked").val(),
+                                };
+                                var    type = "POST";
+                                var redirection = '{{ route("demande.show",":id") }}';
+                                swal(swal_ot, function () {
+                                    $.ajax({
+                                        type: type,
+                                        url: url,
+                                        data: formData,
+                                    }).done(function (demande) {
 
-                        urlto = redirection.replace(':id', demande.id);                   
-                        location.href =urlto ;
+                                        urlto = redirection.replace(':id', demande.id);                   
+                                        location.href =urlto ;
+                                    }).error(function () {
+                                        swal("{{Lang::get('contenu.alert.oops')}}", "{{Lang::get('contenu.alert.problem_server')}}", "error");
+                                    });
+                                });
+
+                            }
+                                        
+
                     }).error(function () {
-                        swal("{{Lang::get('contenu.alert.oops')}}", "{{Lang::get('contenu.alert.problem_server')}}", "error");
+                        swal("{{Lang::get('contenu.admin.oops')}}", "{{Lang::get('contenu.admin.problem_server')}}", "error");
                     });
-                });
 
             }else{
 

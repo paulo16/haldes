@@ -10,6 +10,7 @@ use App\Services\DemandeService;
 use App\Services\HaldeService;
 use App\Typedemande;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -291,5 +292,22 @@ class DemandeController extends Controller
             $reponse = ["reponse" => "ok"];
             return response()->json($reponse);
         }
+    }
+    public function infodemandeur()
+    {
+        $currentuser = Auth::user();
+        $personne = Personne::leftJoin('users', 'users.id', '=', 'personnes.user_id')
+            ->leftJoin('structures', 'structures.id', '=', 'personnes.structure_id')
+            ->select('personnes.id', 'personnes.nom as nom_p', 'cin', 'structures.nom as nom_entreprise')
+            ->where('personnes.user_id', $currentuser->id)
+            ->get()
+            ->first();
+
+            $datenow     = new \DateTime();
+            $datenow     = $datenow->format('d-m-Y H:i:s');
+
+            $reponse = ["nom" => $personne->nom_p,"cin" => $personne->cin,"entreprise" => $personne->nom_entreprise,"date" => $datenow ];
+            return response()->json($reponse);
+        
     }
 }

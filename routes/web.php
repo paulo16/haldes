@@ -38,8 +38,9 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
 
 Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     Route::resource('halde', 'HaldeController');
-    
+
     Route::get('demande/lastdemandemois', 'DemandeController@lastdemande')->name('demandes.lastdemandemois');
+    Route::get('demande/infodemandeur', 'DemandeController@infodemandeur')->name('demandes.infodemandeur');
 
     Route::get('demande/datahaldes-frontend', 'DemandeController@datahaldesfrontend')->name('demandes.datahaldesfrontend');
     Route::get('demande/datademandes-frontend', 'DemandeController@datademandes')->name('demandes.datademandes');

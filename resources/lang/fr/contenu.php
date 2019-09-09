@@ -195,7 +195,7 @@ return [
         'demande_message' => 'Demande bien éffectuée !',
         'sure'            => 'Engagement',
         'subtext_sure'    => 'Après envoi de votre demande vous ne pourriez plus faire de demande pendant un certains temps !',
-        'confirm_btn'     => 'Oui, envoyer !',
+        'confirm_btn'     => 'Oui, engagement confirmé !',
         'cancel_btn'      => 'Non, Annuler !',
         'env_imp'         => 'envoi impossible!',
         'sub_env'         => 'demande envoyée, vueillez consulter votre mail regulièrement pour recevoir notre reponse dans les 10 jours !',
