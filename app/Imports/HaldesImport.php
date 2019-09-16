@@ -43,8 +43,8 @@ class HaldesImport implements ToCollection, WithBatchInserts, WithValidation
     {
         $groupe = Groupe::firstOrCreate([
             'nom_publication' => $this->nom_publication,
-            'date_publication' => $this->date_publication,
-            'date_fin_publication' => $this->date_fin_publication,
+            'date_publication' => $this->date_publication->setTime(0, 0, 0),
+            'date_fin_publication' => $this->date_fin_publication->setTime(0, 0, 0),
             'disponible' => true,
 
         ]);
@@ -61,23 +61,26 @@ class HaldesImport implements ToCollection, WithBatchInserts, WithValidation
             //     }
             //     return  redirect()->back()->withErrors($this->errors);
             // } else {
-            $region = Region::firstOrCreate([
-                'nom' => trim($row[5]),
-            ]);
+            if ($row[0] != "site") {
 
-            Halde::firstOrCreate([
-                'nom' => trim($row[0]),
-                'coordonnees' => 'x : '.trim($row[1]) . '- y :' . trim($row[2]),
-                'province_noms' => trim($row[4]),
-                'substance_noms' => trim($row[6]),
-                'region_id' => $region->id,
-                'carte' => trim($row[3]),
-                'carte' => trim($row[3]),
-                'qte_dechets' => $row[7],
-                'info_complementaires' => $row[8],
-                'disponible' => true,
-                'groupe_id' => $groupe->id,
-            ]);
+                $region = Region::firstOrCreate([
+                    'nom' => trim($row[4]),
+                ]);
+
+                Halde::firstOrCreate([
+                    'nom' => trim($row[0]),
+                    //'coordonnees' => 'x : '.trim($row[1]) . '- y :' . trim($row[2]),
+                    'x_y' => trim($row[1]),
+                    'province_noms' => trim($row[3]),
+                    'substance_noms' => trim($row[5]),
+                    'region_id' => $region->id,
+                    'carte' => trim($row[2]),
+                    'qte_dechets' => $row[6],
+                    'info_complementaires' => $row[7],
+                    'disponible' => true,
+                    'groupe_id' => $groupe->id,
+                ]);
+            }
         }
     }
 
@@ -100,6 +103,8 @@ class HaldesImport implements ToCollection, WithBatchInserts, WithValidation
 
         ];
     }
+
+
 
     public function customValidationAttributes()
     {

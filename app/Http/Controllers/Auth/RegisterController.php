@@ -141,99 +141,123 @@ class RegisterController extends Controller
 
         try {
 
-            $user =  User::create([
-                'name'     => $data['nom_responsable'],
-                'email'    => $data['email'],
-                'password' => Hash::make($data['password']),
-            ]);
+            //$user=null;
 
-            $role = Role::firstOrCreate(array('name' => 'externe'));
-            \DB::table('role_user')->insert([
-                'user_id'              => $user->id,
-                'role_id'             => $role->id,
-            ]);
+            if ($this->checksmtp()) {
 
+                $user =  User::create([
+                    'name'     => $data['nom_responsable'],
+                    'email'    => $data['email'],
+                    'password' => Hash::make($data['password']),
+                ]);
 
-
-            $structure = Structure::create([
-                'nom'                     => $data['raison_social'],
-                'siege'                   => $data['siege_entreprise'],
-                'nationalite'             => $data['nationalite_entreprise'],
-                'telephone'               => $data['fixe'],
-                'date_creation_structure' => $data['date_creation'],
-                'fax'                     => $data['fax_entreprise'],
-                'capital'                     => $data['capital_entreprise'],
-                'typestructure_id'        => $data['type_structure'],
-            ]);
+                $role = Role::firstOrCreate(array('name' => 'externe'));
+                \DB::table('role_user')->insert([
+                    'user_id'              => $user->id,
+                    'role_id'             => $role->id,
+                ]);
 
 
 
-            $entreprise = Entreprise::create([
-                'raison_social'       => $data['raison_social'],
-                'nom_gerant'       => $data['nom_gerant'],
-                'prenom_gerant'       => $data['prenom_gerant'],
-                'email_gerant'       => $data['email_gerant'],
-                'tel_gerant'       => isset($data['tel_gerant']) ? $data['tel_gerant'] : '',
-                'adresse_gerant'       => isset($data['adresse_gerant']) ? $data['adresse_gerant'] : '',
-                'registre_commerce'   => $data['registre_commerce'],
-                'nombre_actionnaires' => isset($data['nombre_personne']) ? $data['nombre_personne'] : 0,
-                'ice'                 => $data['ice'],
-                'cnss'                => $data['cnss'],
-                'if'                  => $data['identifiant_fiscal'],
-                'structure_id'        => $structure->id,
-            ]);
-
-            $personne = Personne::create([
-                'nom'            => $data['nom_responsable'],
-                'prenom'         => $data['prenom'],
-                'nationalite'    => $data['nationalite_responsable'],
-                'adresse'        => $data['adresse_responsable'],
-                'telephone_fixe' => $data['fixe'],
-                'mobile'         => $data['mobile'],
-                'cin'            => $data['cin'],
-                'typepersonne_id'   => $data['type_personne'],
-                'structure_id'   => $structure->id,
-                'user_id'        => $user->id,
-            ]);
-
-
-            // Ajout d'actionnaire
-
-            // if (
-            //     isset($data["input_nom"]) && is_array($data["input_nom"]) &&
-            //     isset($data["input_prenom"]) && is_array($data["input_prenom"]) &&
-            //     isset($data["input_part"]) && is_array($data["input_part"])
-            // ) {
+                $structure = Structure::create([
+                    'nom'                     => $data['raison_social'],
+                    'siege'                   => $data['siege_entreprise'],
+                    'nationalite'             => $data['nationalite_entreprise'],
+                    'telephone'               => $data['fixe'],
+                    'date_creation_structure' => $data['date_creation'],
+                    'fax'                     => $data['fax_entreprise'],
+                    'capital'                     => $data['capital_entreprise'],
+                    'typestructure_id'        => $data['type_structure'],
+                ]);
 
 
 
-            //     $input_noms = array_filter($data["input_nom"]);
-            //     $input_prenoms = array_filter($data["input_prenom"]);
-            //     $input_parts = array_filter($data["input_part"]);
-            //     $taille = count($input_noms);
+                $entreprise = Entreprise::create([
+                    'raison_social'       => $data['raison_social'],
+                    'nom_gerant'       => $data['nom_gerant'],
+                    'prenom_gerant'       => $data['prenom_gerant'],
+                    'email_gerant'       => $data['email_gerant'],
+                    'tel_gerant'       => isset($data['tel_gerant']) ? $data['tel_gerant'] : '',
+                    'adresse_gerant'       => isset($data['adresse_gerant']) ? $data['adresse_gerant'] : '',
+                    'registre_commerce'   => $data['registre_commerce'],
+                    'nombre_actionnaires' => isset($data['nombre_personne']) ? $data['nombre_personne'] : 0,
+                    'ice'                 => $data['ice'],
+                    'cnss'                => $data['cnss'],
+                    'if'                  => $data['identifiant_fiscal'],
+                    'structure_id'        => $structure->id,
+                ]);
 
-            //     $array_actionnaires = array();
-            //     for ($i = 0; $i < $taille; $i++) {
-            //         $array_actionnaires[] = [
-            //             'nom'       => $input_noms[$i],
-            //             'prenom'   => $input_prenoms[$i],
-            //             'part_social' => $input_parts[$i],
-            //             'entreprise_id' => $entreprise->id,
-            //         ];
-            //     }
-            //     //dd($array_actionnaires);
+                $personne = Personne::create([
+                    'nom'            => $data['nom_responsable'],
+                    'prenom'         => $data['prenom'],
+                    'nationalite'    => $data['nationalite_responsable'],
+                    'adresse'        => $data['adresse_responsable'],
+                    'telephone_fixe' => $data['fixe'],
+                    'mobile'         => $data['mobile'],
+                    'cin'            => $data['cin'],
+                    'typepersonne_id'   => $data['type_personne'],
+                    'structure_id'   => $structure->id,
+                    'user_id'        => $user->id,
+                ]);
 
-            //     DB::table('actionnaires')->insert($array_actionnaires);
-            // }
+
+                // Ajout d'actionnaire
 
 
-            DB::commit();
+                if (
+                    isset($data["input_nom"]) && is_array($data["input_nom"]) &&
+                    isset($data["input_prenom"]) && is_array($data["input_prenom"]) &&
+                    isset($data["input_part"]) && is_array($data["input_part"])
+                ) {
+
+
+                    $input_noms = array_filter($data["input_nom"]);
+                    $input_prenoms = array_filter($data["input_prenom"]);
+                    $input_parts = array_filter($data["input_part"]);
+                    $taille = count($input_noms);
+
+
+                    for ($i = 0; $i < $taille; $i++) {
+                        Actionnaire::create([
+                            'nom'       => $input_noms[$i],
+                            'prenom'   => $input_prenoms[$i],
+                            'part_social' => $input_parts[$i],
+                            'entreprise_id' => $entreprise->id,
+                        ]);
+                    }
+                }
+
+
+                DB::commit();
+            }
+            return $user;
             //all good
         } catch (\Exception $e) {
             DB::rollback();
             //something went wrong
         }
-
         return $user;
+    }
+
+    public function checksmtp()
+    {
+        try {
+            $mail_encryp = env('MAIL_ENCRYPTION');
+            $mail_host = env('MAIL_HOST');
+            $mail_port = env('MAIL_PORT');
+            $mail_username = env('MAIL_USERNAME');
+            $mail_password = env('MAIL_PASSWORD');
+            $security = ($mail_encryp != 'None') ? $mail_encryp : null;
+            $transport = new \Swift_SmtpTransport($mail_host, $mail_port, $security);
+            $transport->setUsername($mail_username);
+            $transport->setPassword($mail_password);
+            $mailer = new \Swift_Mailer($transport);
+            $mailer->getTransport()->start();
+            return true;
+        } catch (Swift_TransportException $e) {
+            return $e->getMessage();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

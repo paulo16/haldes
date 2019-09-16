@@ -43,7 +43,7 @@
               <label for="coordonnees">Coordonnees*</label>
               <input type="text" name="coordonnees" parsley-trigger="change" required
                 placeholder="Entrer le coordonnees" class="form-control" id="coordonnees"
-                value="{{ old('coordonnees',$halde->coordonnees) }}">
+                value="{{ old('coordonnees',$halde->x_y) }}">
 
               @if ($errors->has('coordonnees'))
               <span class="help-block">
@@ -109,8 +109,9 @@
 
             <div class="form-group{{ $errors->has('info_comp') ? ' has-error' : '' }}">
               <label for="info_comp">Informations complémentaire </label>
-              <textarea type="text" name="info_comp" class="form-control" id="info_comp"
-                value="{{ old('info_comp',$halde->info_complementaires) }}"></textarea>
+              <textarea type="text" name="info_comp" class="form-control" id="info_comp">
+                {{$halde->info_complementaires}}
+              </textarea>
 
               @if ($errors->has('info_comp'))
               <span class="help-block">

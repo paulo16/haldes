@@ -118,7 +118,7 @@ class HaldeController extends Controller
         $halde = Halde::find($id);
         $halde->substance_noms = $request->get('substance') ? $request->get('substance') : '';
         $halde->nom = $request->get('nom') ? $request->get('nom') : '';
-        $halde->coordonnees = $request->get('coordonnees') ? $request->get('coordonnees') : '';
+        $halde->x_y = $request->get('coordonnees') ? $request->get('coordonnees') : '';
         $halde->region_id = $request->get('region') ? $request->get('region') : '';
         $halde->province_noms = $request->get('province') ? $request->get('province') : '';
         $halde->qte_dechets = $request->get('dechets') ? $request->get('dechets') : '';
@@ -144,7 +144,7 @@ class HaldeController extends Controller
     }
 
     public function datahaldesbackend(Request $request)
-    { 
+    {
         return $this->haldeService->listehaldesback($request);
     }
     /**
@@ -157,5 +157,10 @@ class HaldeController extends Controller
     public function delete(Request $request, $id)
     {
         return response()->json($this->destroy($id));
+    }
+
+    public function datahistorique(Request $request, $id_demande)
+    {
+        return $this->haldeService->listehaldehistorique($request, $id_demande);
     }
 }

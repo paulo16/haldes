@@ -1,18 +1,18 @@
 @extends('backend.layouts.default')
 
 @section('head')
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{asset('assets/backend/images/favicon_1.ico')}}">
-    <title>Admin dash</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="{{asset('assets/backend/images/favicon_1.ico')}}">
+<title>Admin dash</title>
 @endsection
 
 @section('content')
 
 @section('title_content')
-    <h4 class="page-title">Tableau de bord</h4>
-    <p class="text-muted page-title-alt">
-    </p>
+<h4 class="page-title">Tableau de bord</h4>
+<p class="text-muted page-title-alt">
+</p>
 @endsection
 
 <div class="row">
@@ -35,7 +35,7 @@
                 <i class="icon-people text-custom"></i>
             </div>
             <div class="text-right">
-                <h3 class="text-dark"><b class="counter">123</b></h3>
+                <h3 class="text-dark"><b class="counter">{{$responsables}}</b></h3>
                 <p class="text-muted">Responsable</p>
             </div>
             <div class="clearfix"></div>
@@ -48,8 +48,8 @@
                 <i class="md-place text-info"></i>
             </div>
             <div class="text-right">
-                <h3 class="text-dark"><b class="counter">50</b></h3>
-                <p class="text-muted">Entreprise</p>
+                <h3 class="text-dark"><b class="counter">{{$structures}}</b></h3>
+                <p class="text-muted">Structures</p>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -61,7 +61,7 @@
                 <i class="icon-directions text-custom"></i>
             </div>
             <div class="text-right">
-                <h3 class="text-dark"><b class="counter">30</b></h3>
+                <h3 class="text-dark"><b class="counter">{{$demandes}}</b></h3>
                 <p class="text-muted">Demandes</p>
             </div>
             <div class="clearfix"></div>

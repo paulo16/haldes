@@ -57,7 +57,7 @@ class ExcelcsvController extends Controller
 
             $path = request()->file('import_file');
             $haldeimport = new HaldesImport;
-            $haldeimport->date_publication = $request->get('date_publication');
+            $haldeimport->date_publication = Carbon::parse($request->get('date_publication'));
             $haldeimport->nom_publication = $request->get('nom_publication');
             $haldeimport->disponible = true;
             //date fin publication

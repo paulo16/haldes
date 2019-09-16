@@ -1,8 +1,5 @@
 <?php
 
-use App\Notifications\VerifyEmail;
-use Illuminate\Support\Facades\Notification;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +39,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     Route::get('demande/lastdemandemois', 'DemandeController@lastdemande')->name('demandes.lastdemandemois');
     Route::get('demande/infodemandeur', 'DemandeController@infodemandeur')->name('demandes.infodemandeur');
 
+    Route::post('demande/annuler/{id}', 'DemandeController@annuler')->name('demandes.annuler');
     Route::get('demande/datahaldes-frontend', 'DemandeController@datahaldesfrontend')->name('demandes.datahaldesfrontend');
     Route::get('demande/datademandes-frontend', 'DemandeController@datademandes')->name('demandes.datademandes');
     Route::get('pdf/engagement-pdf/{id}', 'DemandeController@pdfengagement')->name('engagement-pdf');
@@ -68,6 +66,7 @@ Route::group(['prefix' => 'haldes', 'middleware' => ['web', 'auth', 'verified']]
     //Haldes
     Route::post('haldes/delete/{id}', 'HaldeController@delete')->name('haldes.delete');
     Route::get('haldes/data', 'HaldeController@datahaldesbackend')->name('haldes.data');
+    Route::get('haldes/datahistorique/{id}', 'HaldeController@datahistorique')->name('haldes.datahistorique');
     Route::resource('haldes', 'HaldeController');
 });
 
@@ -95,5 +94,4 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function () {
     Route::post('groupes/delete/{id}', 'GroupeController@delete')->name('groupes.delete');
     Route::get('groupes/data', 'GroupeController@data')->name('groupes.data');
     Route::post('groupes/publier/{id}', 'GroupeController@publier')->name('groupes.publier');
-
 });

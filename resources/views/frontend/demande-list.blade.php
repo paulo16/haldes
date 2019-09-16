@@ -53,6 +53,7 @@
                             <th scope="col"><h5>{{ Lang::get('contenu.demande.site_province')}}</h5></th>
                             <th scope="col"><h5>{{ Lang::get('contenu.demande.date_demande')}}</h5></th>
                             <th scope="col"><h5>{{ Lang::get('contenu.demande.etat')}}</h5></th>
+                            <th scope="col"><h5>{{ Lang::get('contenu.demande.action')}}</h5></th>
                         </tr>
                     </thead>
                 </table>
@@ -158,6 +159,7 @@
                     {data: 'coordonnees', name: 'coordonnees'},
                     {data: 'date_demande', name: 'date_demande'},
                     {data: 'etat', name: 'etat'},
+                    {data: 'action', name: 'action'},
                     ],
         });
         ////////// soumettre formulaire //////////
@@ -184,6 +186,49 @@
                 swal("{{Lang::get('contenu.alert.oops')}}", "{{Lang::get('contenu.alert.problem_server')}}", "error");
             });
         });
+
+
+        /////////////// annuler demande //////////////
+        $(document).on('click', '.delete', function () {
+                var id = $(this).data('id');
+                var swal_ot = {
+                    title: "{{Lang::get('contenu.demande.sure')}}",
+                    text: "votre demande sera annulée",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "{{Lang::get('contenu.admin.confirm_btn')}}",
+                    cancelButtonText: "{{Lang::get('contenu.admin.cancel_btn')}}",
+                    closeOnConfirm: false
+                };
+                var url = '{{ route("demandes.annuler", ":id") }}';
+                url = url.replace(':id', id);
+
+                swal(swal_ot, function () {
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {_token: '{{ csrf_token() }}'},
+                    }).done(function (result) {
+                        //var rep= JSON.stringify(reponse);
+                        //console.log(result);
+                        if (result.reponse == "impossible") {
+                            swal("{{Lang::get('contenu.groupe.impossible')}}", "{{Lang::get('contenu.groupe.sub_impossible')}}", "warning");
+
+                        } else {
+                            swal("{{Lang::get('contenu.demande.annuler')}}", "{{Lang::get('contenu.demande.sub_annuler')}}", "success");
+
+                        }
+                        table.ajax.reload(null, false);
+                        
+
+                    }).error(function () {
+                        swal("{{Lang::get('contenu.admin.oops')}}", "{{Lang::get('contenu.admin.problem_server')}}", "error");
+                    });
+                });
+            });
+
+
+
     });
     </script>
     @endsection

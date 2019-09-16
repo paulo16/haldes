@@ -12,8 +12,10 @@ interface HaldeService
 {
 
 	public function listhaldesfrontend(Request $request);
-	
+
 	public function listehaldesback(Request $request);
+
+	public function listehaldehistorique(Request $request, $id_demande);
 
 	public function update(Request $request, $id);
 

@@ -293,6 +293,17 @@ class DemandeController extends Controller
             return response()->json($reponse);
         }
     }
+    public function annuler($id)
+    {
+        $demande = Demande::find($id);
+        $halde = Halde::where('id', $demande->halde_id)->first();
+        $halde->disponible = 1;
+        $halde->save();
+        $demande->annuler = "oui";
+        return response()->json($demande->save());
+    }
+
+
     public function infodemandeur()
     {
         $currentuser = Auth::user();
@@ -303,11 +314,10 @@ class DemandeController extends Controller
             ->get()
             ->first();
 
-            $datenow     = new \DateTime();
-            $datenow     = $datenow->format('d-m-Y H:i:s');
+        $datenow     = new \DateTime();
+        $datenow     = $datenow->format('d-m-Y H:i:s');
 
-            $reponse = ["nom" => $personne->nom_p,"cin" => $personne->cin,"entreprise" => $personne->nom_entreprise,"date" => $datenow ];
-            return response()->json($reponse);
-        
+        $reponse = ["nom" => $personne->nom_p, "cin" => $personne->cin, "entreprise" => $personne->nom_entreprise, "date" => $datenow];
+        return response()->json($reponse);
     }
 }

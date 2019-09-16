@@ -3,6 +3,7 @@
 <title>
     Haldes | Register
 </title>
+<meta name="csrf" value="{{ csrf_token() }}">
 @endsection
 @section('header')
 <header class="bg-grad-blue mt70">
@@ -243,13 +244,12 @@
                                 </label>
                                 <input class="input-md input-circle form-control" name="password" placeholder=""
                                     type="password">
-                                <p id="passwordHelpBlock" class="form-text text-muted">
-                                    Votre mot de passe doit comporter plus de 8 caractères et au moins 1 caractère
-                                    majuscule, 1 minuscule, 1 caractère numérique et 1 caractère spécial.
-                                </p>
                                 @error('password')
                                 <span class="color-red">
                                     <code>
+                                            <p id="passwordHelpBlock" class="form-text text-muted">
+                                                    @lang('contenu.errors.password')
+                                                </p>
                                     {{ $message }}
                                     </code>
                                 </span>
@@ -485,7 +485,7 @@
                             @error('identifiant_fiscal')
                             <span class="color-red">
                                 <code>
-                                {{ $message }}
+                                    @lang('contenu.errors.if')
                                 </code>
                             </span>
                             @enderror
@@ -715,11 +715,6 @@
      
      //When user click on add input button
         $(add_button).click(function(e){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            });
                 e.preventDefault();
         //Check maximum allowed input fields
                 if(x < max_fields){ 

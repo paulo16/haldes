@@ -42,7 +42,7 @@
             <div class="form-group{{ $errors->has('date_publication') ? ' has-error' : '' }}">
               <label for="nom">Date publication</label>
               <div class='input-group date'>
-                <input type="text" id="date_publication" name="date_publication" class="form-control"
+                <input type="date" id="date_publication" name="date_publication" class="form-control"
                   id="date_publication" value="{{ old('date_publication',$groupe->date_publication) }}">
                 </span </div> @if ($errors->has('date_publication'))
                 <span class="help-block">
@@ -54,7 +54,7 @@
               <div class="form-group{{ $errors->has('date_fin_publication') ? ' has-error' : '' }}">
                 <label for="date_fin_publication">Date fin publication</label>
                 <div class='input-group date'>
-                  <input data-format="yyyy-MM-dd hh:mm:ss" type="text" id="date_fin_publication"
+                  <input type="date" id="date_fin_publication"
                     name="date_fin_publication" class="form-control" id="date_fin_publication"
                     value="{{ old('date_fin_publication',$groupe->date_fin_publication) }}">
                   </span </div> @if ($errors->has('date_fin_publication'))
@@ -103,15 +103,5 @@
 
 @section('js')
 
-<script>
-  $(function () {
-      $('#date_publication').datetimepicker({
-        "format": 'yyyy-mm-dd hh:mm:ss.00',
-      });
-      $('#date_fin_publication').datetimepicker({
-        "format": 'yyyy-mm-dd hh:ii:ss.00',
-      });
-  });
-</script>
 
 @endsection

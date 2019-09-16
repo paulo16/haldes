@@ -236,15 +236,15 @@
                                 var swal_ot = {
                                     title: "{{Lang::get('contenu.alert.sure')}}",
                                     text: ""+
-                                    "Je soussigné …"+result.nom+"……. titulaire de la CIN n°…"+result.cin+"….. et "+ 
-                                        "représentant de la société/président de la coopérative …"+result.entreprise+"…… atteste par la " +
+                                    "Je soussigné "+result.nom+". titulaire de la CIN n° "+result.cin+" et "+ 
+                                        "représentant de la société/président de la coopérative "+result.entreprise+" atteste par la " +
                                         "présente, mon engagement à remettre à la Direction Régionale du Département "+
-                                        "de l’Energie et des Mines de ……RABAT………., l’ensemble des pièces constituant "+
+                                        "de l’Energie et des Mines , l’ensemble des pièces constituant "+
                                         "le dossier de la demande d’autorisation d’Exploitation des Haldes et Terrils "+ 
                                         "y compris le récépissé de versement de la rémunération "+
                                         "des services rendus au titre de l’institution de la dite "+
                                         "autorisation, et ce, dans un délai ne dépassant pas 10 jours à "+
-                                        "compter de la date de réservation du site minier/ à compter du ……"+result.date+"……….",
+                                        "compter de la date de réservation du site minier/ à compter du "+result.date+".",
                                     type: "warning",
                                     showCancelButton: true,
                                     confirmButtonText: "{{Lang::get('contenu.alert.confirm_btn')}}",

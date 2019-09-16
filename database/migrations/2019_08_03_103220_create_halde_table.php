@@ -16,6 +16,7 @@ class CreateHaldeTable extends Migration
         Schema::create('haldes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom')->nullable();
+            $table->string('x_y')->nullable();
             $table->string('coordonnees')->nullable();
             $table->text('carte')->nullable();
             $table->text('substance_noms')->nullable();

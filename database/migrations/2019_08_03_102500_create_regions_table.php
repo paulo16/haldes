@@ -17,7 +17,7 @@ class CreateRegionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('nom')->nullable();
             $table->string('chef_lieu')->nullable();
-            $table->timestamps();
+            $table->timestamps(2);
         });
     }
 

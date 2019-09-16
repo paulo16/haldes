@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="{{asset('assets/backend/images/favicon_1.ico')}}">
-<title>Admin dash</title>
+<title>Admin|Historique</title>
 <link href="{{asset('assets/backend/plugins/datatables/jquery.dataTables.min.css')}}" rel="stylesheet"
     type="text/css" />
 <link href="{{asset('assets/backend/plugins/datatables/buttons.bootstrap.min.css')}}" rel="stylesheet"
@@ -19,15 +19,43 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box table-responsive">
-            <h4 class="header-title m-t-0 m-b-30">Liste des Haldes/Terrils </h4>
+            <h4 class="header-title m-t-0 m-b-30">Historique halde</h4>
+            <form>
+                <input type="hidden" name="id_demande" id="id_demande" value="{{$halde->id}}">
+            </form>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="m-b-30">
-                        <a id="add-substance" role="button" href="{{route('haldes.create')}}"
-                            class="btn btn-primary waves-effect waves-light">
-                            AJOUTER UN TERRIL <i class="fa fa-plus"></i>
-                        </a>
-                    </div>
+                <div class="col-sm-12">
+                    <table>
+                        <tr>
+                            <td>nom: </td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                            <td> {{$halde->nom}}</td>
+                        </tr>
+                        <tr>
+                            <td>lieu: </td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                            <td> {{$halde->x_y}}</td>
+                        </tr>
+                        <tr>
+                            <td>carte: </td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                            <td> {{$halde->carte}}</td>
+                        </tr>
+                        <tr>
+                            <td>province: </td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                            <td> {{$halde->province_noms}}<br><br></td>
+                        </tr>
+                        <tr>
+                            <td>informations: </td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                            <td> {{$halde->info_complementaires}}</td>
+                        </tr>
+                        <tr>
+                                <td><br><br><br><br></td>
+                                <td><br><br><br><br></td>
+                            </tr>
+                    </table>
                 </div>
             </div>
 
@@ -36,44 +64,20 @@
                 <thead>
                     <tr>
                         <th>
-                            {{ Lang::get('contenu.demande.nom_halde')}}
+                            {{ Lang::get('contenu.page_view_halde.nom_halde')}}
                         </th>
                         <th>
-                            {{ Lang::get('contenu.demande.coordonnees')}}
+                            {{ Lang::get('contenu.page_view_halde.coordonnees')}}
                         </th>
                         <th>
-                            {{ Lang::get('contenu.demande.carte')}}
+                            {{ Lang::get('contenu.page_view_halde.personne')}}
                         </th>
                         <th>
-                            {{ Lang::get('contenu.demande.nom_region')}}
-                        </th>
-                        <th>
-                            {{ Lang::get('contenu.demande.nom_province')}}
-                        </th>
-
-                        <th>
-                            {{ Lang::get('contenu.demande.qte_dechets')}}
-                        </th>
-                        <th>
-                            {{ Lang::get('contenu.demande.substances')}}
-                        </th>
-                        <th>
-                            {{ Lang::get('contenu.demande.reserver')}}
-                        </th>
-                        <th>
-                            {{ Lang::get('contenu.demande.publication')}}
-                        </th>
-                        <th>
-                            {{ Lang::get('contenu.demande.info_complementaires')}}
+                            {{ Lang::get('contenu.page_view_halde.reserver')}}
                         </th>
                         <th>
                             {{ Lang::get('contenu.page_view_halde.annuler')}}
                         </th>
-
-                        <th>
-                            {{ Lang::get('contenu.demande.action')}}
-                        </th>
-
                     </tr>
                 </thead>
             </table>
@@ -113,6 +117,12 @@
 </script>
 <script>
     $(document).ready(function () {
+
+            var id_demande = $('#id_demande').val();
+            console.log(id_demande);
+            var url = '{{ route("haldes.datahistorique", ":id") }}';
+                url = url.replace(':id', id_demande);
+
             var table = $('#haldes-table')
                 .DataTable({
                     "oLanguage": {
@@ -145,7 +155,7 @@
                     ],
                     processing: true,
                     serverSide: true,
-                    ajax: '{!! route('haldes.data') !!}',
+                    ajax: url,
                     data: {_token: '{{ csrf_token() }}'},
                     dom: "<'row'<'col-sm-3'l><'col-sm-4'B><'col-sm-5'f>>" +
                          "<'row'<'col-sm-12'tr>>" +
@@ -155,14 +165,14 @@
                             extend: "pdfHtml5",
                             title: "Plateforme Haldes-Terrils",
                             exportOptions: {
-                                columns: [0,1,2,3,4,5,6,7,8,9,10]
+                                columns: [0,1,2,3,4]
                             }
                         },
                         {
                             extend: "csvHtml5",
                             title: "Plateforme Haldes-Terrils",
                             exportOptions: {
-                                columns: [0,1,2,3,4,5,6,7,8,9,10]
+                                columns: [0,1,2,3,4]
                             }
                         },
                         {
@@ -170,58 +180,20 @@
                             title: "Plateforme Haldes-Terrils",
                             text: "imprimer",
                             exportOptions: {
-                                columns: [0,1,2,3,4,5,6,7,8,9,10]
+                                columns: [0,1,2,3,4]
                             }
                         },
                 ],
                 columns: [
                     {data: 'nom_halde', name: 'haldes.nom'},
                     {data: 'coordonnees', name: 'coordonnees'},
-                    {data: 'carte', name: 'carte'},
-                    {data: 'nom_region', name: 'nom_region'},
-                    {data: 'province_noms', name: 'province_noms'},
-                    {data: 'qte_dechets', name: 'qte_dechets'},
-                    {data: 'substance_noms', name: 'substance_noms'},
+                    {data: 'personne', name: 'personne'},
                     {data: 'reserver', name: 'reserver'},
-                    {data: 'date_publication', name: 'date_publication'},
-                    {data: 'info_complementaires', name: 'info_complementaires'},
                     {data: 'annuler', name: 'annuler'},
-                    {data: 'action', name: 'action'}
                 ],
 
+
                 });
-
-            //////////////////// Delete User ///////////////////////////////////
-
-            $(document).on('click', '.delete', function () {
-                var id = $(this).data('id');
-                var swal_ot = {
-                    title: "{{Lang::get('contenu.admin.sure')}}",
-                    text: "{{Lang::get('contenu.admin.subtext_sure')}}",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "{{Lang::get('contenu.admin.confirm_btn')}}",
-                    cancelButtonText: "{{Lang::get('contenu.admin.cancel_btn')}}",
-                    closeOnConfirm: false
-                };
-                var url = '{{ route("haldes.delete", ":id") }}';
-                url = url.replace(':id', id);
-
-                swal(swal_ot, function () {
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: {_token: '{{ csrf_token() }}'},
-                    }).done(function () {
-                        swal("{{Lang::get('contenu.admin.supprime')}}", "{{Lang::get('contenu.admin.sub_sup')}}", "success");
-                        table.ajax.reload(null, false);
-                        ;
-
-                    }).error(function () {
-                        swal("{{Lang::get('contenu.admin.oops')}}", "{{Lang::get('contenu.admin.problem_server')}}", "error");
-                    });
-                });
-            });
 
         });
 </script>

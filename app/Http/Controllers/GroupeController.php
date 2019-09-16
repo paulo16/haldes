@@ -30,6 +30,9 @@ class GroupeController extends Controller
     public function edit($id)
     {
         $groupe = Groupe::find($id);
+        $groupe->date_publication = $groupe->date_publication ? with(new Carbon($groupe->date_publication))->format('Y-m-d') : '';
+        $groupe->date_fin_publication = $groupe->date_fin_publication ? with(new Carbon($groupe->date_fin_publication))->format('Y-m-d') : '';
+        
 
         return view('backend.groupes.edit', compact('groupe'));
     }
@@ -42,18 +45,18 @@ class GroupeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request);
+        //'regex:/^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]).([0-9]{2})$/';
         $this->validate($request, [
             'nom_publication' => 'required|max:255',
-            'date_publication' => ['required', 'regex:/^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]).([0-9]{2})$/'],
-            'date_fin_publication' => ['required', 'regex:/^\d\d\d\d-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01]) (00|[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]).([0-9]{2})$/'],
+            'date_publication' => ['required'],
+            'date_fin_publication' => ['required',],
             'disponible' => 'required',
         ]);
 
         $groupe = Groupe::find($id);
         $groupe->nom_publication = $request->get('nom_publication');
-        $groupe->date_publication = $request->get('date_publication');
-        $groupe->date_fin_publication = $request->get('date_fin_publication');
+        $groupe->date_publication = Carbon::parse($request->get('date_publication'));
+        $groupe->date_fin_publication = Carbon::parse($request->get('date_fin_publication'));
         $groupe->disponible = $request->get('disponible') ? 1 : 0;
 
 
@@ -143,6 +146,12 @@ class GroupeController extends Controller
             })
             ->editColumn('created_at', function ($model) {
                 return $model->created_at ? with(new Carbon($model->created_at))->format('d/m/Y') : '';
+            })
+            ->editColumn('date_publication', function ($model) {
+                return $model->date_publication ? with(new Carbon($model->date_publication))->format('d/m/Y') : '';
+            })
+            ->editColumn('date_fin_publication', function ($model) {
+                return $model->date_fin_publication ? with(new Carbon($model->date_fin_publication))->format('d/m/Y') : '';
             });
         // les filtres 
         // Global search function
@@ -177,7 +186,7 @@ class GroupeController extends Controller
 
     public function publier(Request $request, $id)
     {
-        $reponse=[];
+        $reponse = [];
         DB::beginTransaction();
 
         try {
@@ -187,7 +196,7 @@ class GroupeController extends Controller
                 ->select('demandes.nom')
                 ->where('haldes.groupe_id', "=", $id)
                 ->get();
-                
+
             if (count($haldescheck) == 0) {
                 $haldes = Halde::where('groupe_id', "=", $id)->get();
 

@@ -36,6 +36,29 @@
                     xlsx</button></a>
                 <a href="{{ url('downloadExcel/csv') }}"><button class="btn btn-success">Download CSV</button></a>
                 -->
+
+
+                <div class="alert alert-info">
+                  <h3>Verifier les informations suivantes dans la fichier</h3>
+
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">la colonne 1 = site</li>
+                    <li class="list-group-item">la colonne 2 = XY</li>
+                    <li class="list-group-item">la colonne 3 = Carte</li>
+                    <li class="list-group-item">la colonne 4 = province</li>
+                    <li class="list-group-item">la colonne 5 = region</li>
+                    <li class="list-group-item">la colonne 6 = Substances</li>
+                    <li class="list-group-item">la colonne 7 = Estimation des haldes et terrils</li>
+                    <li class="list-group-item">la colonne 8 = sInformations</li>
+
+                  </ul>
+                  <div class="alert alert-danger">
+                    Si cette structure n'est pas respectée l'importation sera incorrecte et non cohérente,
+                    vous deviez alors supprimer le groupe et recommencer .
+                  </div>
+                </div>
+
+
                 <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;"
                   action="{{ route('importexcel.import') }}" class="form-horizontal" method="post"
                   enctype="multipart/form-data">
@@ -60,18 +83,18 @@
                   @endif
 
                   <table>
-                      <tr>
-                          <td><label for="nom_publication">Nom groupe</label></td>
-                          <td><input type="text" name="nom_publication"></td>
-                        </tr>
+                    <tr>
+                      <td><label for="nom_publication">Nom groupe</label></td>
+                      <td><input type="text" name="nom_publication"></td>
+                    </tr>
                     <tr>
                       <td><label for="nom">Date publication</label></td>
                       <td><input type="date" name="date_publication"></td>
                     </tr>
                     <tr>
-                        <td><br></td>
-                        <td><br></td>
-                      </tr>
+                      <td><br></td>
+                      <td><br></td>
+                    </tr>
                     <tr>
                       <td><input type="file" name="import_file" /></td>
                       <td> <button class="btn btn-primary">Importer votre fichier haldes</button>

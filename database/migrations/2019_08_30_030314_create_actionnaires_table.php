@@ -15,12 +15,12 @@ class CreateActionnairesTable extends Migration
     {
         Schema::create('actionnaires', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nom');
-            $table->string('prenom');
-            $table->string('adresse');
-            $table->string('email');
-            $table->string('telephone');
-            $table->string('part_social');
+            $table->string('nom')->nullable();
+            $table->string('prenom')->nullable();
+            $table->string('adresse')->nullable();
+            $table->string('email')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('part_social')->nullable();
             $table->unsignedInteger('entreprise_id')->nullable();
             $table->timestamps(2);
         });
