@@ -11,8 +11,11 @@
 @endif
 
 {{-- Intro Lines --}}
+@if (Route::has('password.request'))
+Veuillez cliquer sur le bouton ci-dessous pour réinitialiser votre mot de passe .
+@else
 Veuillez cliquer sur le bouton ci-dessous pour vérifier votre adresse email.
-
+@endif
 {{-- Action Button --}}
 @isset($actionText)
 <?php
@@ -26,7 +29,20 @@ Veuillez cliquer sur le bouton ci-dessous pour vérifier votre adresse email.
     }
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])
+@if (Route::has('password.request'))
+
+réinitialiser mot de passe
+@php
+$button= "réinitialiser mot de passe";
+
+@endphp
+@else
 Vérification adresse email
+@php
+$button= "Verification adresse email";
+
+@endphp
+@endif
 @endcomponent
 @endisset
 
@@ -46,12 +62,12 @@ Si vous n'avez pas créé de compte, aucune action supplémentaire n'est requise
 @isset($actionText)
 @slot('subcopy')
 @lang(
-    "Si vous ne parvenez pas à cliquer sur le bouton  \"Verification adresse email\" , copiez et collez l'URL ci-dessous \n".
-    'Dans votre navigateur: [:actionURL](:actionURL)',
-    [
-        'actionText' => $actionText,
-        'actionURL' => $actionUrl,
-    ]
+"Si vous ne parvenez pas à cliquer sur le bouton \"$button\" , copiez et collez l'URL ci-dessous \n".
+'Dans votre navigateur: [:actionURL](:actionURL)',
+[
+'actionText' => $actionText,
+'actionURL' => $actionUrl,
+]
 )
 @endslot
 @endisset

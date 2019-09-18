@@ -11,6 +11,18 @@
 |
  */
 
+use App\Demande;
+use Illuminate\Support\Carbon;
+
+Route::get('crontest/', function () {
+    $users = Demande::leftJoin('personnes', 'personnes.id', '=', 'demandes.personne_id')
+    ->leftJoin('users', 'users.id', '=', 'personnes.user_id')
+    ->select('personnes.id', 'personnes.nom', 'users.email')
+    ->where('demandes.created_at', '>', Carbon::now()->subMinutes(2))
+    ->get();
+    return $users;
+});
+
 Route::get('lang/{locale}', function ($locale) {
     App::setLocale($locale);
     session()->put('locale', $locale);
