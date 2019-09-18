@@ -151,6 +151,7 @@ class RegisterController extends Controller
                     'password' => Hash::make($data['password']),
                 ]);
 
+
                 $role = Role::firstOrCreate(array('name' => 'externe'));
                 \DB::table('role_user')->insert([
                     'user_id'              => $user->id,
@@ -227,9 +228,10 @@ class RegisterController extends Controller
                     }
                 }
 
-
                 DB::commit();
+                $user->sendEmailVerificationNotification();
             }
+
             return $user;
             //all good
         } catch (\Exception $e) {

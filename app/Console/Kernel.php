@@ -32,31 +32,30 @@ class Kernel extends ConsoleKernel
         //une fois l'application mis en place veuillez remplacer cette partie
         //dans le code plus bas
         //$demandes = Demande::where('created_at', '=', Carbon::now()->subDays(10))
-        $schedule->call(function () {
-            $users = Demande::leftJoin('personnes', 'personnes.id', '=', 'demandes.personne_id')
-                ->leftJoin('users', 'users.id', '=', 'personnes.user_id')
-                ->select('personnes.id', 'personnes.nom', 'users.email')
-                ->where('demandes.created_at', '>', Carbon::now()->subMinutes(2))
-                ->get();
+        // $schedule->call(function () {
+        //     $users = Demande::leftJoin('personnes', 'personnes.id', '=', 'demandes.personne_id')
+        //         ->leftJoin('users', 'users.id', '=', 'personnes.user_id')
+        //         ->select('personnes.id', 'personnes.nom', 'users.email')
+        //         ->where('demandes.created_at', '>', Carbon::now()->subMinutes(2))
+        //         ->get();
 
-            foreach ($users as $user) {
-                Mail::to($user->email)->send(new EtatDemande);
-                
-            }
-        })->when(function () {
-            //$demandes = Demande::where('created_at', '=', Carbon::now()->subDays(10))
-            $demandes = Demande::where('created_at', '>', Carbon::now()->subMinutes(2))
-                ->get();
-            if ($demandes) {
-                return true;
-            } else {
-                return false;
-            }
-        })->everyFiveMinutes();
+        //     foreach ($users as $user) {
+        //         Mail::to($user->email)->send(new EtatDemande);
+
+        //     }
+        // })->when(function () {
+        //     //$demandes = Demande::where('created_at', '=', Carbon::now()->subDays(10))
+        //     $demandes = Demande::where('created_at', '>', Carbon::now()->subMinutes(2))
+        //         ->get();
+        //     if ($demandes) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // })->everyFiveMinutes();
 
 
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('Emailtenday:send')->everyMinute();
     }
 
     /**
